@@ -1,6 +1,6 @@
-package repositorys;
+package com.sait.ciaoToursEMS.repositorys;
 
-import model.Employee;
+import com.sait.ciaoToursEMS.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package model;
+package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
 
@@ -10,13 +10,13 @@ public class Employee {
     @GeneratedValue
     private long ID;
 
-    @Column(name = "first-name")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last-name")
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "job-title")
+    @Column(name = "job_title")
     private String jobTitle;
 
     public Employee() {}
