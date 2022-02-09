@@ -2,7 +2,6 @@ package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
 import java.time.*;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -12,10 +11,9 @@ public class Employee {
     @GeneratedValue
     @Column(name = "employee_id" )
     private long employee_id ;
-    @ManyToOne
-    @JoinColumn(name = "employee_type_id", table = "Employee_type")
-    @Column(name = "employee_type_id")
-    private long employee_type_id ;
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "employee_type_id", referencedColumnName = "employee_type_id")
+    private Employee_type employee_type;
     @Column(name = "firstName")
    String firstName;
     @Column(name = "lastName")
@@ -43,9 +41,8 @@ public class Employee {
     @Column(name = "transit_id")
     int transit_id;
 
-    public Employee(long employee_id, long employee_type_id, String firstName, String lastName, String address, String city, String emailAddress, LocalDateTime employee_start_date, LocalDateTime employee_end_date, float hourlyWage, int isAdmin, int isBookeeper, int institution_id, int bankAccount_number, int transit_id) {
+    public Employee(long employee_id, String firstName, String lastName, String address, String city, String emailAddress, LocalDateTime employee_start_date, LocalDateTime employee_end_date, float hourlyWage, int isAdmin, int isBookeeper, int institution_id, int bankAccount_number, int transit_id) {
         this.employee_id = employee_id;
-        this.employee_type_id = employee_type_id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -67,14 +64,6 @@ public class Employee {
 
     public void setEmployee_id(long employee_id) {
         this.employee_id = employee_id;
-    }
-
-    public long getEmployee_type_id() {
-        return employee_type_id;
-    }
-
-    public void setEmployee_type_id(long employee_type_id) {
-        this.employee_type_id = employee_type_id;
     }
 
     public String getFirstName() {
@@ -186,19 +175,18 @@ public class Employee {
         if (this == o) return true;
         if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return getEmployee_id() == employee.getEmployee_id() && getEmployee_type_id() == employee.getEmployee_type_id() && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0 && getIsAdmin() == employee.getIsAdmin() && getIsBookeeper() == employee.getIsBookeeper() && getInstitution_id() == employee.getInstitution_id() && getBankAccount_number() == employee.getBankAccount_number() && getTransit_id() == employee.getTransit_id() && getFirstName().equals(employee.getFirstName()) && getLastName().equals(employee.getLastName()) && getAddress().equals(employee.getAddress()) && getCity().equals(employee.getCity()) && getEmailAddress().equals(employee.getEmailAddress()) && getEmployee_start_date().equals(employee.getEmployee_start_date()) && getEmployee_end_date().equals(employee.getEmployee_end_date());
+        return getEmployee_id() == employee.getEmployee_id() && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0 && getIsAdmin() == employee.getIsAdmin() && getIsBookeeper() == employee.getIsBookeeper() && getInstitution_id() == employee.getInstitution_id() && getBankAccount_number() == employee.getBankAccount_number() && getTransit_id() == employee.getTransit_id() && getFirstName().equals(employee.getFirstName()) && getLastName().equals(employee.getLastName()) && getAddress().equals(employee.getAddress()) && getCity().equals(employee.getCity()) && getEmailAddress().equals(employee.getEmailAddress()) && getEmployee_start_date().equals(employee.getEmployee_start_date()) && getEmployee_end_date().equals(employee.getEmployee_end_date());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmployee_id(), getEmployee_type_id(), getFirstName(), getLastName(), getAddress(), getCity(), getEmailAddress(), getEmployee_start_date(), getEmployee_end_date(), getHourlyWage(), getIsAdmin(), getIsBookeeper(), getInstitution_id(), getBankAccount_number(), getTransit_id());
+        return Objects.hash(getEmployee_id(), getFirstName(), getLastName(), getAddress(), getCity(), getEmailAddress(), getEmployee_start_date(), getEmployee_end_date(), getHourlyWage(), getIsAdmin(), getIsBookeeper(), getInstitution_id(), getBankAccount_number(), getTransit_id());
     }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "employee_id=" + employee_id +
-                ", employee_type_id=" + employee_type_id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +

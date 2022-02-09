@@ -14,7 +14,8 @@ public class Employee_type {
     private long employee_type_id;
     @Column(name = "description")
     private String description;
-
+    @OneToOne(mappedBy = "Employee")
+    private Employee employee;
     public Employee_type(long employee_type_id, String description) {
         this.employee_type_id = employee_type_id;
         this.description = description;
