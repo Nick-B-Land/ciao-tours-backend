@@ -3,6 +3,7 @@ package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class User {
     @NotBlank
     private String password;
 
-    @NotBlank
+    @NotNull
     private Long employeeID;
 
     @ManyToMany
@@ -29,6 +30,12 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     public User() {}
+
+    public User(@NotBlank String username, @NotBlank String password, @NotBlank Long employee_id) {
+        this.username = username;
+        this.password = password;
+        this.employeeID = employee_id;
+    }
 
     public User(@NotBlank String username, @NotBlank String password, @NotBlank Long employee_id, Set<Role> roles) {
         this.username = username;
