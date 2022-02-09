@@ -12,7 +12,7 @@ public class Employee {
     @Column(name = "employee_id" )
     private long employee_id ;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_type_id", referencedColumnName = "employee_type_id")
+    @JoinTable(name = "employee_type_id", joinColumns = @JoinColumn(name="employee_type_id"), inverseJoinColumns = @JoinColumn(name="employee_type_id"))
     private Employee_type Employee_type;
     @Column(name = "firstName")
    String firstName;
