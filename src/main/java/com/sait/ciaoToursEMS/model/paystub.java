@@ -10,6 +10,7 @@ public class paystub {
     @GeneratedValue
     @Column(name = "paystub_id")
     private long paystub_id;
+    int x;
     @Column(name = "firstName")
     private  String firstName;
     @Column(name = "lastName")
