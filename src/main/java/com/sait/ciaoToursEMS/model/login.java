@@ -21,5 +21,55 @@ public class login{
     @Column(name = "password")
     private String password;
 
+    public login(long loginId, Employee employee, String password) {
+        this.loginId = loginId;
+        this.employee = employee;
+        this.password = password;
+    }
 
+    public long getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(long loginId) {
+        this.loginId = loginId;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof login)) return false;
+        login login = (login) o;
+        return getLoginId() == login.getLoginId() && Objects.equals(getEmployee(), login.getEmployee()) && Objects.equals(getPassword(), login.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getLoginId(), getEmployee(), getPassword());
+    }
+
+    @Override
+    public String toString() {
+        return "login{" +
+                "loginId=" + loginId +
+                ", employee=" + employee +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

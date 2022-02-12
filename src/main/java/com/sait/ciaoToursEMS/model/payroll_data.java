@@ -80,5 +80,237 @@ public class payroll_data {
 
     @Column(name = "expense_date")
     private Date expenseDate;
+
+    public payroll_data(long payrollDataId, com.sait.ciaoToursEMS.model.payroll payroll, Set<Event> roles, Date dateOfPayrollData, int noOfWorkingHours, double timeOff, String officeUsage, String otherUsage, float usageCost, String dailyAssistanceClient, LocalDateTime dailyAssistanceStartDate, LocalDateTime dailyAssistanceEndDate, float dailyAssistanceFee, String tourBookingAdminDescription, int tourBookingNumOfHours, String tourBookingClient, float tourBookingAdminFee, Date dayOfExpense, String expenseDescription, float expenseAmount, Date expenseDate) {
+        PayrollDataId = payrollDataId;
+        this.payroll = payroll;
+        this.roles = roles;
+        this.dateOfPayrollData = dateOfPayrollData;
+        this.noOfWorkingHours = noOfWorkingHours;
+        this.timeOff = timeOff;
+        this.officeUsage = officeUsage;
+        this.otherUsage = otherUsage;
+        this.usageCost = usageCost;
+        this.dailyAssistanceClient = dailyAssistanceClient;
+        this.dailyAssistanceStartDate = dailyAssistanceStartDate;
+        this.dailyAssistanceEndDate = dailyAssistanceEndDate;
+        this.dailyAssistanceFee = dailyAssistanceFee;
+        this.tourBookingAdminDescription = tourBookingAdminDescription;
+        this.tourBookingNumOfHours = tourBookingNumOfHours;
+        this.tourBookingClient = tourBookingClient;
+        this.tourBookingAdminFee = tourBookingAdminFee;
+        this.dayOfExpense = dayOfExpense;
+        this.expenseDescription = expenseDescription;
+        this.expenseAmount = expenseAmount;
+        this.expenseDate = expenseDate;
     }
+
+    public long getPayrollDataId() {
+        return PayrollDataId;
+    }
+
+    public void setPayrollDataId(long payrollDataId) {
+        PayrollDataId = payrollDataId;
+    }
+
+    public com.sait.ciaoToursEMS.model.payroll getPayroll() {
+        return payroll;
+    }
+
+    public void setPayroll(com.sait.ciaoToursEMS.model.payroll payroll) {
+        this.payroll = payroll;
+    }
+
+    public Set<Event> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Event> roles) {
+        this.roles = roles;
+    }
+
+    public Date getDateOfPayrollData() {
+        return dateOfPayrollData;
+    }
+
+    public void setDateOfPayrollData(Date dateOfPayrollData) {
+        this.dateOfPayrollData = dateOfPayrollData;
+    }
+
+    public int getNoOfWorkingHours() {
+        return noOfWorkingHours;
+    }
+
+    public void setNoOfWorkingHours(int noOfWorkingHours) {
+        this.noOfWorkingHours = noOfWorkingHours;
+    }
+
+    public double getTimeOff() {
+        return timeOff;
+    }
+
+    public void setTimeOff(double timeOff) {
+        this.timeOff = timeOff;
+    }
+
+    public String getOfficeUsage() {
+        return officeUsage;
+    }
+
+    public void setOfficeUsage(String officeUsage) {
+        this.officeUsage = officeUsage;
+    }
+
+    public String getOtherUsage() {
+        return otherUsage;
+    }
+
+    public void setOtherUsage(String otherUsage) {
+        this.otherUsage = otherUsage;
+    }
+
+    public float getUsageCost() {
+        return usageCost;
+    }
+
+    public void setUsageCost(float usageCost) {
+        this.usageCost = usageCost;
+    }
+
+    public String getDailyAssistanceClient() {
+        return dailyAssistanceClient;
+    }
+
+    public void setDailyAssistanceClient(String dailyAssistanceClient) {
+        this.dailyAssistanceClient = dailyAssistanceClient;
+    }
+
+    public LocalDateTime getDailyAssistanceStartDate() {
+        return dailyAssistanceStartDate;
+    }
+
+    public void setDailyAssistanceStartDate(LocalDateTime dailyAssistanceStartDate) {
+        this.dailyAssistanceStartDate = dailyAssistanceStartDate;
+    }
+
+    public LocalDateTime getDailyAssistanceEndDate() {
+        return dailyAssistanceEndDate;
+    }
+
+    public void setDailyAssistanceEndDate(LocalDateTime dailyAssistanceEndDate) {
+        this.dailyAssistanceEndDate = dailyAssistanceEndDate;
+    }
+
+    public float getDailyAssistanceFee() {
+        return dailyAssistanceFee;
+    }
+
+    public void setDailyAssistanceFee(float dailyAssistanceFee) {
+        this.dailyAssistanceFee = dailyAssistanceFee;
+    }
+
+    public String getTourBookingAdminDescription() {
+        return tourBookingAdminDescription;
+    }
+
+    public void setTourBookingAdminDescription(String tourBookingAdminDescription) {
+        this.tourBookingAdminDescription = tourBookingAdminDescription;
+    }
+
+    public int getTourBookingNumOfHours() {
+        return tourBookingNumOfHours;
+    }
+
+    public void setTourBookingNumOfHours(int tourBookingNumOfHours) {
+        this.tourBookingNumOfHours = tourBookingNumOfHours;
+    }
+
+    public String getTourBookingClient() {
+        return tourBookingClient;
+    }
+
+    public void setTourBookingClient(String tourBookingClient) {
+        this.tourBookingClient = tourBookingClient;
+    }
+
+    public float getTourBookingAdminFee() {
+        return tourBookingAdminFee;
+    }
+
+    public void setTourBookingAdminFee(float tourBookingAdminFee) {
+        this.tourBookingAdminFee = tourBookingAdminFee;
+    }
+
+    public Date getDayOfExpense() {
+        return dayOfExpense;
+    }
+
+    public void setDayOfExpense(Date dayOfExpense) {
+        this.dayOfExpense = dayOfExpense;
+    }
+
+    public String getExpenseDescription() {
+        return expenseDescription;
+    }
+
+    public void setExpenseDescription(String expenseDescription) {
+        this.expenseDescription = expenseDescription;
+    }
+
+    public float getExpenseAmount() {
+        return expenseAmount;
+    }
+
+    public void setExpenseAmount(float expenseAmount) {
+        this.expenseAmount = expenseAmount;
+    }
+
+    public Date getExpenseDate() {
+        return expenseDate;
+    }
+
+    public void setExpenseDate(Date expenseDate) {
+        this.expenseDate = expenseDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof payroll_data)) return false;
+        payroll_data that = (payroll_data) o;
+        return getPayrollDataId() == that.getPayrollDataId() && getNoOfWorkingHours() == that.getNoOfWorkingHours() && Double.compare(that.getTimeOff(), getTimeOff()) == 0 && Float.compare(that.getUsageCost(), getUsageCost()) == 0 && Float.compare(that.getDailyAssistanceFee(), getDailyAssistanceFee()) == 0 && getTourBookingNumOfHours() == that.getTourBookingNumOfHours() && Float.compare(that.getTourBookingAdminFee(), getTourBookingAdminFee()) == 0 && Float.compare(that.getExpenseAmount(), getExpenseAmount()) == 0 && Objects.equals(getPayroll(), that.getPayroll()) && Objects.equals(getRoles(), that.getRoles()) && Objects.equals(getDateOfPayrollData(), that.getDateOfPayrollData()) && Objects.equals(getOfficeUsage(), that.getOfficeUsage()) && Objects.equals(getOtherUsage(), that.getOtherUsage()) && Objects.equals(getDailyAssistanceClient(), that.getDailyAssistanceClient()) && Objects.equals(getDailyAssistanceStartDate(), that.getDailyAssistanceStartDate()) && Objects.equals(getDailyAssistanceEndDate(), that.getDailyAssistanceEndDate()) && Objects.equals(getTourBookingAdminDescription(), that.getTourBookingAdminDescription()) && Objects.equals(getTourBookingClient(), that.getTourBookingClient()) && Objects.equals(getDayOfExpense(), that.getDayOfExpense()) && Objects.equals(getExpenseDescription(), that.getExpenseDescription()) && Objects.equals(getExpenseDate(), that.getExpenseDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPayrollDataId(), getPayroll(), getRoles(), getDateOfPayrollData(), getNoOfWorkingHours(), getTimeOff(), getOfficeUsage(), getOtherUsage(), getUsageCost(), getDailyAssistanceClient(), getDailyAssistanceStartDate(), getDailyAssistanceEndDate(), getDailyAssistanceFee(), getTourBookingAdminDescription(), getTourBookingNumOfHours(), getTourBookingClient(), getTourBookingAdminFee(), getDayOfExpense(), getExpenseDescription(), getExpenseAmount(), getExpenseDate());
+    }
+
+    @Override
+    public String toString() {
+        return "payroll_data{" +
+                "PayrollDataId=" + PayrollDataId +
+                ", payroll=" + payroll +
+                ", roles=" + roles +
+                ", dateOfPayrollData=" + dateOfPayrollData +
+                ", noOfWorkingHours=" + noOfWorkingHours +
+                ", timeOff=" + timeOff +
+                ", officeUsage='" + officeUsage + '\'' +
+                ", otherUsage='" + otherUsage + '\'' +
+                ", usageCost=" + usageCost +
+                ", dailyAssistanceClient='" + dailyAssistanceClient + '\'' +
+                ", dailyAssistanceStartDate=" + dailyAssistanceStartDate +
+                ", dailyAssistanceEndDate=" + dailyAssistanceEndDate +
+                ", dailyAssistanceFee=" + dailyAssistanceFee +
+                ", tourBookingAdminDescription='" + tourBookingAdminDescription + '\'' +
+                ", tourBookingNumOfHours=" + tourBookingNumOfHours +
+                ", tourBookingClient='" + tourBookingClient + '\'' +
+                ", tourBookingAdminFee=" + tourBookingAdminFee +
+                ", dayOfExpense=" + dayOfExpense +
+                ", expenseDescription='" + expenseDescription + '\'' +
+                ", expenseAmount=" + expenseAmount +
+                ", expenseDate=" + expenseDate +
+                '}';
+    }
+}
 
