@@ -11,9 +11,10 @@ public class Event {
     @Id
     @GeneratedValue
     @Column(name = "event_id")
-    private long event_id;
-    @Column(name = "Event_description")
-    private String Event_description;
+    private long eventId;
+
+    @Column(name = "event_description")
+    private String eventDescription;
 
 
 }

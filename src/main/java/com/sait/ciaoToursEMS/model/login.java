@@ -12,10 +12,12 @@ public class login{
     @Id
     @GeneratedValue
     @Column(name = "login_id")
-    private long login_id;
+    private long loginId;
+
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
+
     @Column(name = "password")
     private String password;
 

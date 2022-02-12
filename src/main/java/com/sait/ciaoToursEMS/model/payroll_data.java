@@ -15,50 +15,70 @@ public class payroll_data {
         @Id
         @GeneratedValue
         @Column(name = "payroll_data_id")
-        private long Payroll_data_id;
+        private long PayrollDataId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payroll_id")
     private payroll payroll;
+
     @ManyToMany
     @JoinTable(name = "payroll_data_event",
             joinColumns = @JoinColumn(name = "Payroll_data_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Set<Event> roles = new HashSet<>();
+
     @Column(name = "date_of_payroll_data")
-    private  Date date_of_payroll_data;
+    private  Date dateOfPayrollData;
+
     @Column(name = "no_of_working_hours")
-    private   int no_of_working_hours;
+    private   int noOfWorkingHours;
+
     @Column(name = "time_off")
-    private  double time_off;
+    private  double timeOff;
+
     @Column(name = "office_usage")
-    private  String office_usage;
+    private  String officeUsage;
+
     @Column(name = "other_usage")
-    private  String other_usage;
+    private  String otherUsage;
+
     @Column(name = "usage_cost")
-    private float usage_cost;
-    @Column(name = "Daily_assistance_Client")
-    private  String Daily_assistance_Client;
-    @Column(name = "Daily_assistance_startDate")
-    private LocalDateTime Daily_assistance_startDate;
-    @Column(name = "Daily_assistance_endDate")
-    private LocalDateTime  Daily_assistance_endDate;
-    @Column(name = "daily_Assistance_fee")
-    private float daily_Assistance_fee ;
-    @Column(name = "Tour_booking_adminDescription")
-    private String Tour_booking_adminDescription;
-    @Column(name = "Tour_booking_numOfHours")
-    private int Tour_booking_numOfHours;
-    @Column(name = "Tour_booking_client")
-    private String Tour_booking_client;
-    @Column(name = "Tour_booking_adminFee")
-    private float Tour_booking_adminFee ;
+    private float usageCost;
+
+    @Column(name = "daily_assistance_client")
+    private  String dailyAssistanceClient;
+
+    @Column(name = "daily_assistance_start_date")
+    private LocalDateTime dailyAssistanceStartDate;
+
+    @Column(name = "daily_assistance_end_date")
+    private LocalDateTime  dailyAssistanceEndDate;
+
+    @Column(name = "daily_assistance_fee")
+    private float dailyAssistanceFee ;
+
+    @Column(name = "tour_booking_admin_description")
+    private String tourBookingAdminDescription;
+
+    @Column(name = "tour_booking_num_of_hours")
+    private int tourBookingNumOfHours;
+
+    @Column(name = "tour_booking_client")
+    private String tourBookingClient;
+
+    @Column(name = "tour_booking_admin_fee")
+    private float tourBookingAdminFee ;
+
     @Column(name = "day_of_expense")
-    private Date day_of_expense ;
-    @Column(name = "Expense_description")
-    private String Expense_description ;
-    @Column(name = "Expense_Amount")
-    private float Expense_Amount;
-    @Column(name = "Expense_date")
-    private Date Expense_date;
+    private Date dayOfExpense ;
+
+    @Column(name = "expense_description")
+    private String expenseDescription ;
+
+    @Column(name = "expense_amount")
+    private float expenseAmount;
+
+    @Column(name = "expense_date")
+    private Date expenseDate;
     }
 
