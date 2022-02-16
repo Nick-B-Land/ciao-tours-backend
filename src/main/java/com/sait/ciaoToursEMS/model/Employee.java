@@ -7,33 +7,34 @@ import java.util.Objects;
 @Entity
 @Table(name = "employee")
 public class Employee {
+
     @Id
     @GeneratedValue
-    @Column(name = "employee_id" )
-    private long employee_id ;
+    @Column(name = "employee_id")
+    private long employee_id;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "employee_type_id", joinColumns = @JoinColumn(name="employee_type_id"), inverseJoinColumns = @JoinColumn(name="employee_type_id"))
+    @JoinTable(name = "employee_type_id", joinColumns = @JoinColumn(name = "employee_type_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
     private Employee_type Employee_type;
     @Column(name = "firstName")
-   String firstName;
+    String firstName;
     @Column(name = "lastName")
-   String lastName;
+    String lastName;
     @Column(name = "address")
-   String address;
+    String address;
     @Column(name = "city")
-   String city;
+    String city;
     @Column(name = "emailAddress")
-   String emailAddress;
+    String emailAddress;
     @Column(name = "employee_start_date")
-   LocalDateTime employee_start_date;
+    LocalDateTime employee_start_date;
     @Column(name = "employee_end_date")
-   LocalDateTime employee_end_date;
+    LocalDateTime employee_end_date;
     @Column(name = "hourlyWage")
-   float hourlyWage;
+    float hourlyWage;
     @Column(name = "isAdmin")
-   int isAdmin;
+    int isAdmin;
     @Column(name = "isBookeeper")
-   int isBookeeper;
+    int isBookeeper;
     @Column(name = "institution_id")
     int institution_id;
     @Column(name = "bankAccount_number")
@@ -41,22 +42,15 @@ public class Employee {
     @Column(name = "transit_id")
     int transit_id;
 
-    public Employee(long employee_id, com.sait.ciaoToursEMS.model.Employee_type employee_type, String firstName, String lastName, String address, String city, String emailAddress, LocalDateTime employee_start_date, LocalDateTime employee_end_date, float hourlyWage, int isAdmin, int isBookeeper, int institution_id, int bankAccount_number, int transit_id) {
+    public Employee(long employee_id, com.sait.ciaoToursEMS.model.Employee_type employee_type, String firstName,
+            String lastName, String address, String city, String emailAddress, LocalDateTime employee_start_date,
+            LocalDateTime employee_end_date, float hourlyWage, int isAdmin, int isBookeeper, int institution_id,
+            int bankAccount_number, int transit_id) {
         this.employee_id = employee_id;
         Employee_type = employee_type;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
-        this.city = city;
-        this.emailAddress = emailAddress;
-        this.employee_start_date = employee_start_date;
-        this.employee_end_date = employee_end_date;
-        this.hourlyWage = hourlyWage;
-        this.isAdmin = isAdmin;
-        this.isBookeeper = isBookeeper;
-        this.institution_id = institution_id;
-        this.bankAccount_number = bankAccount_number;
-        this.transit_id = transit_id;
+        this.jobTitle = jobTitle;
     }
 
     public long getEmployee_id() {
@@ -181,15 +175,29 @@ public class Employee {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Employee))
+            return false;
         Employee employee = (Employee) o;
-        return getEmployee_id() == employee.getEmployee_id() && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0 && getIsAdmin() == employee.getIsAdmin() && getIsBookeeper() == employee.getIsBookeeper() && getInstitution_id() == employee.getInstitution_id() && getBankAccount_number() == employee.getBankAccount_number() && getTransit_id() == employee.getTransit_id() && getEmployee_type().equals(employee.getEmployee_type()) && getFirstName().equals(employee.getFirstName()) && getLastName().equals(employee.getLastName()) && getAddress().equals(employee.getAddress()) && getCity().equals(employee.getCity()) && getEmailAddress().equals(employee.getEmailAddress()) && getEmployee_start_date().equals(employee.getEmployee_start_date()) && getEmployee_end_date().equals(employee.getEmployee_end_date());
+        return getEmployee_id() == employee.getEmployee_id()
+                && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0
+                && getIsAdmin() == employee.getIsAdmin() && getIsBookeeper() == employee.getIsBookeeper()
+                && getInstitution_id() == employee.getInstitution_id()
+                && getBankAccount_number() == employee.getBankAccount_number()
+                && getTransit_id() == employee.getTransit_id() && getEmployee_type().equals(employee.getEmployee_type())
+                && getFirstName().equals(employee.getFirstName()) && getLastName().equals(employee.getLastName())
+                && getAddress().equals(employee.getAddress()) && getCity().equals(employee.getCity())
+                && getEmailAddress().equals(employee.getEmailAddress())
+                && getEmployee_start_date().equals(employee.getEmployee_start_date())
+                && getEmployee_end_date().equals(employee.getEmployee_end_date());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmployee_id(), getEmployee_type(), getFirstName(), getLastName(), getAddress(), getCity(), getEmailAddress(), getEmployee_start_date(), getEmployee_end_date(), getHourlyWage(), getIsAdmin(), getIsBookeeper(), getInstitution_id(), getBankAccount_number(), getTransit_id());
+        return Objects.hash(getEmployee_id(), getEmployee_type(), getFirstName(), getLastName(), getAddress(),
+                getCity(), getEmailAddress(), getEmployee_start_date(), getEmployee_end_date(), getHourlyWage(),
+                getIsAdmin(), getIsBookeeper(), getInstitution_id(), getBankAccount_number(), getTransit_id());
     }
 
     @Override
