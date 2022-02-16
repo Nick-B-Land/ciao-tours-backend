@@ -2,71 +2,101 @@ package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
 import java.time.*;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "employee")
 public class Employee {
-
     @Id
     @GeneratedValue
     @Column(name = "employee_id")
-    private long employee_id;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "employee_type_id", joinColumns = @JoinColumn(name = "employee_type_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
-    private Employee_type Employee_type;
-    @Column(name = "firstName")
-    String firstName;
-    @Column(name = "lastName")
-    String lastName;
-    @Column(name = "address")
-    String address;
-    @Column(name = "city")
-    String city;
-    @Column(name = "emailAddress")
-    String emailAddress;
-    @Column(name = "employee_start_date")
-    LocalDateTime employee_start_date;
-    @Column(name = "employee_end_date")
-    LocalDateTime employee_end_date;
-    @Column(name = "hourlyWage")
-    float hourlyWage;
-    @Column(name = "isAdmin")
-    int isAdmin;
-    @Column(name = "isBookeeper")
-    int isBookeeper;
-    @Column(name = "institution_id")
-    int institution_id;
-    @Column(name = "bankAccount_number")
-    int bankAccount_number;
-    @Column(name = "transit_id")
-    int transit_id;
+    private long employeeId;
 
-    public Employee(long employee_id, com.sait.ciaoToursEMS.model.Employee_type employee_type, String firstName,
-            String lastName, String address, String city, String emailAddress, LocalDateTime employee_start_date,
-            LocalDateTime employee_end_date, float hourlyWage, int isAdmin, int isBookeeper, int institution_id,
-            int bankAccount_number, int transit_id) {
-        this.employee_id = employee_id;
-        Employee_type = employee_type;
+    @ManyToMany
+    @JoinTable(name = "EID_ETID", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
+    private Set<Employee_type> roles = new HashSet<>();
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "email_address")
+    private String emailAddress;
+
+    @Column(name = "employee_start_date")
+    private LocalDateTime employeeStartDate;
+
+    @Column(name = "employee_end_date")
+    private LocalDateTime employeeEndDate;
+
+    @Column(name = "hourly_wage")
+    private float hourlyWage;
+
+    @Column(name = "monthly_salary")
+    private float monthlySalary;
+
+    @Column(name = "is_admin")
+    private long isAdmin;
+
+    @Column(name = "is_bookeeper")
+    private long isBookeeper;
+
+    @Column(name = "institution_id")
+    private long institutionId;
+
+    @Column(name = "bank_account_number")
+    private long bankAccountNumber;
+
+    @Column(name = "transit_id")
+    private long transitId;
+
+    public Employee(long employeeId, Set<Employee_type> roles, String firstName, String lastName, String address,
+            String city, String emailAddress, LocalDateTime employeeStartDate, LocalDateTime employeeEndDate,
+            float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId,
+            long bankAccountNumber, long transitId) {
+        this.employeeId = employeeId;
+        this.roles = roles;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.jobTitle = jobTitle;
+        this.address = address;
+        this.city = city;
+        this.emailAddress = emailAddress;
+        this.employeeStartDate = employeeStartDate;
+        this.employeeEndDate = employeeEndDate;
+        this.hourlyWage = hourlyWage;
+        this.monthlySalary = monthlySalary;
+        this.isAdmin = isAdmin;
+        this.isBookeeper = isBookeeper;
+        this.institutionId = institutionId;
+        this.bankAccountNumber = bankAccountNumber;
+        this.transitId = transitId;
     }
 
-    public long getEmployee_id() {
-        return employee_id;
+    public long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee_id(long employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public com.sait.ciaoToursEMS.model.Employee_type getEmployee_type() {
-        return Employee_type;
+    public Set<Employee_type> getRoles() {
+        return roles;
     }
 
-    public void setEmployee_type(com.sait.ciaoToursEMS.model.Employee_type employee_type) {
-        Employee_type = employee_type;
+    public void setRoles(Set<Employee_type> roles) {
+        this.roles = roles;
     }
 
     public String getFirstName() {
@@ -109,20 +139,20 @@ public class Employee {
         this.emailAddress = emailAddress;
     }
 
-    public LocalDateTime getEmployee_start_date() {
-        return employee_start_date;
+    public LocalDateTime getEmployeeStartDate() {
+        return employeeStartDate;
     }
 
-    public void setEmployee_start_date(LocalDateTime employee_start_date) {
-        this.employee_start_date = employee_start_date;
+    public void setEmployeeStartDate(LocalDateTime employeeStartDate) {
+        this.employeeStartDate = employeeStartDate;
     }
 
-    public LocalDateTime getEmployee_end_date() {
-        return employee_end_date;
+    public LocalDateTime getEmployeeEndDate() {
+        return employeeEndDate;
     }
 
-    public void setEmployee_end_date(LocalDateTime employee_end_date) {
-        this.employee_end_date = employee_end_date;
+    public void setEmployeeEndDate(LocalDateTime employeeEndDate) {
+        this.employeeEndDate = employeeEndDate;
     }
 
     public float getHourlyWage() {
@@ -133,44 +163,52 @@ public class Employee {
         this.hourlyWage = hourlyWage;
     }
 
-    public int getIsAdmin() {
+    public float getMonthlySalary() {
+        return monthlySalary;
+    }
+
+    public void setMonthlySalary(float monthlySalary) {
+        this.monthlySalary = monthlySalary;
+    }
+
+    public long getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(int isAdmin) {
+    public void setIsAdmin(long isAdmin) {
         this.isAdmin = isAdmin;
     }
 
-    public int getIsBookeeper() {
+    public long getIsBookeeper() {
         return isBookeeper;
     }
 
-    public void setIsBookeeper(int isBookeeper) {
+    public void setIsBookeeper(long isBookeeper) {
         this.isBookeeper = isBookeeper;
     }
 
-    public int getInstitution_id() {
-        return institution_id;
+    public long getInstitutionId() {
+        return institutionId;
     }
 
-    public void setInstitution_id(int institution_id) {
-        this.institution_id = institution_id;
+    public void setInstitutionId(long institutionId) {
+        this.institutionId = institutionId;
     }
 
-    public int getBankAccount_number() {
-        return bankAccount_number;
+    public long getBankAccountNumber() {
+        return bankAccountNumber;
     }
 
-    public void setBankAccount_number(int bankAccount_number) {
-        this.bankAccount_number = bankAccount_number;
+    public void setBankAccountNumber(long bankAccountNumber) {
+        this.bankAccountNumber = bankAccountNumber;
     }
 
-    public int getTransit_id() {
-        return transit_id;
+    public long getTransitId() {
+        return transitId;
     }
 
-    public void setTransit_id(int transit_id) {
-        this.transit_id = transit_id;
+    public void setTransitId(long transitId) {
+        this.transitId = transitId;
     }
 
     @Override
@@ -180,44 +218,47 @@ public class Employee {
         if (!(o instanceof Employee))
             return false;
         Employee employee = (Employee) o;
-        return getEmployee_id() == employee.getEmployee_id()
+        return getEmployeeId() == employee.getEmployeeId()
                 && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0
+                && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0
                 && getIsAdmin() == employee.getIsAdmin() && getIsBookeeper() == employee.getIsBookeeper()
-                && getInstitution_id() == employee.getInstitution_id()
-                && getBankAccount_number() == employee.getBankAccount_number()
-                && getTransit_id() == employee.getTransit_id() && getEmployee_type().equals(employee.getEmployee_type())
-                && getFirstName().equals(employee.getFirstName()) && getLastName().equals(employee.getLastName())
-                && getAddress().equals(employee.getAddress()) && getCity().equals(employee.getCity())
-                && getEmailAddress().equals(employee.getEmailAddress())
-                && getEmployee_start_date().equals(employee.getEmployee_start_date())
-                && getEmployee_end_date().equals(employee.getEmployee_end_date());
+                && getInstitutionId() == employee.getInstitutionId()
+                && getBankAccountNumber() == employee.getBankAccountNumber()
+                && getTransitId() == employee.getTransitId() && Objects.equals(getRoles(), employee.getRoles())
+                && Objects.equals(getFirstName(), employee.getFirstName())
+                && Objects.equals(getLastName(), employee.getLastName())
+                && Objects.equals(getAddress(), employee.getAddress()) && Objects.equals(getCity(), employee.getCity())
+                && Objects.equals(getEmailAddress(), employee.getEmailAddress())
+                && Objects.equals(getEmployeeStartDate(), employee.getEmployeeStartDate())
+                && Objects.equals(getEmployeeEndDate(), employee.getEmployeeEndDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmployee_id(), getEmployee_type(), getFirstName(), getLastName(), getAddress(),
-                getCity(), getEmailAddress(), getEmployee_start_date(), getEmployee_end_date(), getHourlyWage(),
-                getIsAdmin(), getIsBookeeper(), getInstitution_id(), getBankAccount_number(), getTransit_id());
+        return Objects.hash(getEmployeeId(), getRoles(), getFirstName(), getLastName(), getAddress(), getCity(),
+                getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(),
+                getIsAdmin(), getIsBookeeper(), getInstitutionId(), getBankAccountNumber(), getTransitId());
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "employee_id=" + employee_id +
-                ", Employee_type=" + Employee_type +
+                "employeeId=" + employeeId +
+                ", roles=" + roles +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", employee_start_date=" + employee_start_date +
-                ", employee_end_date=" + employee_end_date +
+                ", employeeStartDate=" + employeeStartDate +
+                ", employeeEndDate=" + employeeEndDate +
                 ", hourlyWage=" + hourlyWage +
+                ", monthlySalary=" + monthlySalary +
                 ", isAdmin=" + isAdmin +
                 ", isBookeeper=" + isBookeeper +
-                ", institution_id=" + institution_id +
-                ", bankAccount_number=" + bankAccount_number +
-                ", transit_id=" + transit_id +
+                ", institutionId=" + institutionId +
+                ", bankAccountNumber=" + bankAccountNumber +
+                ", transitId=" + transitId +
                 '}';
     }
 }

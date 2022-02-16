@@ -20,19 +20,20 @@ public class EmployeeController {
     private EmployeeRepository employeeRepository;
 
     @GetMapping("/employees")
-    public List<Employee> getAllEmployees(){
+    public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
+
     }
 
     @GetMapping("/testAuth")
     @PreAuthorize("hasRole('ADMIN') or hasRole('BOOKKEEPER')")
-    public String adminAccess(){
+    public String adminAccess() {
         return "Must be admin or bookkeeper to see this";
     }
 
     @GetMapping("/testEmp")
     @PreAuthorize("hasRole('EMPLOYEE')")
-    public String empAccess(){
+    public String empAccess() {
         return "Must be employee to see this";
     }
 
