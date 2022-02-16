@@ -11,7 +11,7 @@ import com.sait.ciaoToursEMS.repositorys.EmployeeRepository;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
 public class EmployeeController {
@@ -26,13 +26,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/testAuth")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('BOOKKEEPER')")
+    //@PreAuthorize("hasRole('ADMIN') or hasRole('BOOKKEEPER')")
     public String adminAccess() {
         return "Must be admin or bookkeeper to see this";
     }
 
     @GetMapping("/testEmp")
-    @PreAuthorize("hasRole('EMPLOYEE')")
+    //@PreAuthorize("hasRole('EMPLOYEE')")
     public String empAccess() {
         return "Must be employee to see this";
     }

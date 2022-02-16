@@ -8,11 +8,29 @@ public class UserInfoResponse {
     private Long employeeID;
     private List<String> roles;
 
+    public String getCookie() {
+        return cookie;
+    }
+
+    public void setCookie(String cookie) {
+        this.cookie = cookie;
+    }
+
+    private String cookie;
+
     public UserInfoResponse(Long id, String username, Long employeeID, List<String> roles) {
         this.id = id;
         this.username = username;
         this.employeeID = employeeID;
         this.roles = roles;
+    }
+
+    public UserInfoResponse(Long id, String username, Long employeeID, List<String> roles, String cookie) {
+        this.id = id;
+        this.username = username;
+        this.employeeID = employeeID;
+        this.roles = roles;
+        this.cookie = cookie;
     }
 
     public Long getId() {

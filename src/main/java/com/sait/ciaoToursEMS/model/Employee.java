@@ -61,6 +61,8 @@ public class Employee {
     @Column(name = "transit_id")
     private long transitId;
 
+    public Employee(){}
+
     public Employee(long employeeId, Set<Employee_type> roles, String firstName, String lastName, String address,
             String city, String emailAddress, LocalDateTime employeeStartDate, LocalDateTime employeeEndDate,
             float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId,

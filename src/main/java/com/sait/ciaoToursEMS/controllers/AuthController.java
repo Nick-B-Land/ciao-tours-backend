@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -64,11 +64,18 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Set-Cookie", jwtCookie.toString());
+        return ResponseEntity.ok().headers(headers)
                 .body(new UserInfoResponse(userDetails.getUserID(),
                         userDetails.getUsername(),
                         userDetails.getEmployeeID(),
-                        roles));
+                        roles, jwtCookie.toString()));
+//        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+//                .body(new UserInfoResponse(userDetails.getUserID(),
+//                        userDetails.getUsername(),
+//                        userDetails.getEmployeeID(),
+//                        roles, jwtCookie.toString()));
     }
 
     @PostMapping("/signup")
