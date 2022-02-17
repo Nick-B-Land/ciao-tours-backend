@@ -16,6 +16,8 @@ public class Employee_type {
     @Column(name = "description")
     private String description;
 
+    public Employee_type(){}
+
     public Employee_type(long employeeTypeId, String description) {
         this.employeeTypeId = employeeTypeId;
         this.description = description;

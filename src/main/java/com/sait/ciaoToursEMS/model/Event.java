@@ -16,6 +16,8 @@ public class Event {
     @Column(name = "event_description")
     private String eventDescription;
 
+    public Event(){}
+
     public Event(long eventId, String eventDescription) {
         this.eventId = eventId;
         this.eventDescription = eventDescription;

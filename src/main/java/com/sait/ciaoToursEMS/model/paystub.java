@@ -56,7 +56,12 @@ public class paystub {
     @Column(name = "date_of_paystub")
     private Date dateOfPaystub;
 
-    public paystub(long paystubId, String firstName, String lastName, String address, String city, String emailAddress, String description, float hourlyWage, int numberOfWorkdays, int numberOfDaysOff, float nonSalaryIncome, float expenseAmount, int numberOfHours, float monthlySalary, float rate, Date dateOfPaystub) {
+    public paystub(){}
+
+    public paystub(long paystubId, String firstName, String lastName, String address, String city,
+                   String emailAddress, String description, float hourlyWage, int numberOfWorkdays,
+                   int numberOfDaysOff, float nonSalaryIncome, float expenseAmount, int numberOfHours,
+                   float monthlySalary, float rate, Date dateOfPaystub) {
         this.paystubId = paystubId;
         this.firstName = firstName;
         this.lastName = lastName;

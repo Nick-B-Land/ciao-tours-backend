@@ -35,10 +35,10 @@ public class Employee {
     private String emailAddress;
 
     @Column(name = "employee_start_date")
-    private LocalDateTime employeeStartDate;
+    private Date employeeStartDate;
 
     @Column(name = "employee_end_date")
-    private LocalDateTime employeeEndDate;
+    private Date employeeEndDate;
 
     @Column(name = "hourly_wage")
     private float hourlyWage;
@@ -64,7 +64,7 @@ public class Employee {
     public Employee(){}
 
     public Employee(long employeeId, Set<Employee_type> roles, String firstName, String lastName, String address,
-            String city, String emailAddress, LocalDateTime employeeStartDate, LocalDateTime employeeEndDate,
+            String city, String emailAddress, Date employeeStartDate, Date employeeEndDate,
             float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId,
             long bankAccountNumber, long transitId) {
         this.employeeId = employeeId;
@@ -141,19 +141,19 @@ public class Employee {
         this.emailAddress = emailAddress;
     }
 
-    public LocalDateTime getEmployeeStartDate() {
+    public Date getEmployeeStartDate() {
         return employeeStartDate;
     }
 
-    public void setEmployeeStartDate(LocalDateTime employeeStartDate) {
+    public void setEmployeeStartDate(Date employeeStartDate) {
         this.employeeStartDate = employeeStartDate;
     }
 
-    public LocalDateTime getEmployeeEndDate() {
+    public Date getEmployeeEndDate() {
         return employeeEndDate;
     }
 
-    public void setEmployeeEndDate(LocalDateTime employeeEndDate) {
+    public void setEmployeeEndDate(Date employeeEndDate) {
         this.employeeEndDate = employeeEndDate;
     }
 

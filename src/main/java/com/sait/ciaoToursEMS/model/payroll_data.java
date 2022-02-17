@@ -12,10 +12,10 @@ import java.util.Set;
 public class payroll_data {
 
 
-        @Id
-        @GeneratedValue
-        @Column(name = "payroll_data_id")
-        private long PayrollDataId;
+    @Id
+    @GeneratedValue
+    @Column(name = "payroll_data_id")
+    private long PayrollDataId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payroll_id")
@@ -81,7 +81,12 @@ public class payroll_data {
     @Column(name = "expense_date")
     private Date expenseDate;
 
-    public payroll_data(long payrollDataId, com.sait.ciaoToursEMS.model.payroll payroll, Set<Event> roles, Date dateOfPayrollData, int noOfWorkingHours, double timeOff, String officeUsage, String otherUsage, float usageCost, String dailyAssistanceClient, LocalDateTime dailyAssistanceStartDate, LocalDateTime dailyAssistanceEndDate, float dailyAssistanceFee, String tourBookingAdminDescription, int tourBookingNumOfHours, String tourBookingClient, float tourBookingAdminFee, Date dayOfExpense, String expenseDescription, float expenseAmount, Date expenseDate) {
+    public payroll_data(){}
+
+    public payroll_data(long payrollDataId, com.sait.ciaoToursEMS.model.payroll payroll, Set<Event> roles, Date dateOfPayrollData, int noOfWorkingHours,
+                        double timeOff, String officeUsage, String otherUsage, float usageCost, String dailyAssistanceClient, LocalDateTime dailyAssistanceStartDate,
+                        LocalDateTime dailyAssistanceEndDate, float dailyAssistanceFee, String tourBookingAdminDescription, int tourBookingNumOfHours, String tourBookingClient,
+                        float tourBookingAdminFee, Date dayOfExpense, String expenseDescription, float expenseAmount, Date expenseDate){
         PayrollDataId = payrollDataId;
         this.payroll = payroll;
         this.roles = roles;

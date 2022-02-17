@@ -21,6 +21,8 @@ public class payroll{
     @Column(name = "date_of_payroll")
     private  Date dateOfPayroll  ;
 
+    public payroll(){}
+
     public payroll(long payrollId, Employee employee, Date dateOfPayroll) {
         this.payrollId = payrollId;
         this.employee = employee;

@@ -21,6 +21,8 @@ public class login{
     @Column(name = "password")
     private String password;
 
+    public login(){}
+
     public login(long loginId, Employee employee, String password) {
         this.loginId = loginId;
         this.employee = employee;
