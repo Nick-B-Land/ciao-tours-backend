@@ -66,8 +66,8 @@ public class Employee {
     @Column(name = "transit_id")
     private long transitId;
 
-    public Employee(long employeeId, Set<Employee_type> roles, com.sait.ciaoToursEMS.model.login login, String firstName, String lastName, String address, String city, String emailAddress, Date employeeStartDate, Date employeeEndDate, float hourlyWage, float monthlySalary, String jobTitle, float sickDays, long institutionId, long bankAccountNumber, long transitId) {
-        this.employeeId = employeeId;
+    public Employee(Long employee_id, Set<Employee_type> roles, com.sait.ciaoToursEMS.model.login login, String firstName, String lastName, String address, String city, String emailAddress, Date employeeStartDate, Date employeeEndDate, float hourlyWage, float monthlySalary, String jobTitle, float sickDays, long institutionId, long bankAccountNumber, long transitId) {
+        this.employee_id = employee_id;
         this.roles = roles;
         this.login = login;
         this.firstName = firstName;
@@ -86,12 +86,12 @@ public class Employee {
         this.transitId = transitId;
     }
 
-    public long getEmployeeId() {
-        return employeeId;
+    public Long getEmployee_id() {
+        return employee_id;
     }
 
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee_id(Long employee_id) {
+        this.employee_id = employee_id;
     }
 
     public Set<Employee_type> getRoles() {
@@ -227,18 +227,18 @@ public class Employee {
         if (this == o) return true;
         if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return getEmployeeId() == employee.getEmployeeId() && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0 && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0 && Float.compare(employee.getSickDays(), getSickDays()) == 0 && getInstitutionId() == employee.getInstitutionId() && getBankAccountNumber() == employee.getBankAccountNumber() && getTransitId() == employee.getTransitId() && Objects.equals(getRoles(), employee.getRoles()) && Objects.equals(getLogin(), employee.getLogin()) && Objects.equals(getFirstName(), employee.getFirstName()) && Objects.equals(getLastName(), employee.getLastName()) && Objects.equals(getAddress(), employee.getAddress()) && Objects.equals(getCity(), employee.getCity()) && Objects.equals(getEmailAddress(), employee.getEmailAddress()) && Objects.equals(getEmployeeStartDate(), employee.getEmployeeStartDate()) && Objects.equals(getEmployeeEndDate(), employee.getEmployeeEndDate()) && Objects.equals(getJobTitle(), employee.getJobTitle());
+        return Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0 && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0 && Float.compare(employee.getSickDays(), getSickDays()) == 0 && getInstitutionId() == employee.getInstitutionId() && getBankAccountNumber() == employee.getBankAccountNumber() && getTransitId() == employee.getTransitId() && Objects.equals(getEmployee_id(), employee.getEmployee_id()) && Objects.equals(getRoles(), employee.getRoles()) && Objects.equals(getLogin(), employee.getLogin()) && Objects.equals(getFirstName(), employee.getFirstName()) && Objects.equals(getLastName(), employee.getLastName()) && Objects.equals(getAddress(), employee.getAddress()) && Objects.equals(getCity(), employee.getCity()) && Objects.equals(getEmailAddress(), employee.getEmailAddress()) && Objects.equals(getEmployeeStartDate(), employee.getEmployeeStartDate()) && Objects.equals(getEmployeeEndDate(), employee.getEmployeeEndDate()) && Objects.equals(getJobTitle(), employee.getJobTitle());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmployeeId(), getRoles(), getLogin(), getFirstName(), getLastName(), getAddress(), getCity(), getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(), getJobTitle(), getSickDays(), getInstitutionId(), getBankAccountNumber(), getTransitId());
+        return Objects.hash(getEmployee_id(), getRoles(), getLogin(), getFirstName(), getLastName(), getAddress(), getCity(), getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(), getJobTitle(), getSickDays(), getInstitutionId(), getBankAccountNumber(), getTransitId());
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId=" + employeeId +
+                "employee_id=" + employee_id +
                 ", roles=" + roles +
                 ", login=" + login +
                 ", firstName='" + firstName + '\'' +
