@@ -11,13 +11,14 @@ import java.util.Set;
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue
-    @Column(name = "employee_id")
-    private long employeeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long employee_id;
 
     @ManyToMany
-    @JoinTable(name = "EID_ETID", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
-    private Set<Employee_type> roles = new HashSet<>();
+    @JoinTable(name = "EID_ETID",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
+    private Set<Employee_type> roles =  new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "login_id")

@@ -9,8 +9,7 @@ import java.util.Objects;
 @Table(name = "Employee_type")
 public class Employee_type {
     @Id
-    @GeneratedValue
-    @Column(name = "employee_type_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employeeTypeId;
 
     @Column(name = "description")
