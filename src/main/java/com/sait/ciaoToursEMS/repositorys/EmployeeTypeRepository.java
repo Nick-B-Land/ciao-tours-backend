@@ -1,10 +1,9 @@
 package com.sait.ciaoToursEMS.repositorys;
 
-import com.sait.ciaoToursEMS.model.Employee;
-import com.sait.ciaoToursEMS.model.Employee_type;
+import com.sait.ciaoToursEMS.model.EmployeeType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeTypeRepository extends JpaRepository<Employee_type, Long> {
+public interface EmployeeTypeRepository extends JpaRepository<EmployeeType, Long> {
 }

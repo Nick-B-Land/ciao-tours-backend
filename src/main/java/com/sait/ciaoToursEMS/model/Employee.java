@@ -1,7 +1,6 @@
 package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
-import java.time.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,7 +16,7 @@ public class Employee {
 
     @ManyToMany
     @JoinTable(name = "EID_ETID", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
-    private Set<Employee_type> roles = new HashSet<>();
+    private Set<EmployeeType> roles = new HashSet<>();
 
     @Column(name = "first_name")
     private String firstName;
@@ -63,10 +62,10 @@ public class Employee {
 
     public Employee(){}
 
-    public Employee(long employeeId, Set<Employee_type> roles, String firstName, String lastName, String address,
-            String city, String emailAddress, Date employeeStartDate, Date employeeEndDate,
-            float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId,
-            long bankAccountNumber, long transitId) {
+    public Employee(long employeeId, Set<EmployeeType> roles, String firstName, String lastName, String address,
+                    String city, String emailAddress, Date employeeStartDate, Date employeeEndDate,
+                    float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId,
+                    long bankAccountNumber, long transitId) {
         this.employeeId = employeeId;
         this.roles = roles;
         this.firstName = firstName;
@@ -93,11 +92,11 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public Set<Employee_type> getRoles() {
+    public Set<EmployeeType> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Employee_type> roles) {
+    public void setRoles(Set<EmployeeType> roles) {
         this.roles = roles;
     }
 
