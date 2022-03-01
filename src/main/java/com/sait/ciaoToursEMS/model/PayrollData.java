@@ -17,8 +17,9 @@ public class PayrollData {
     @Column(name = "payroll_data_id")
     private long PayrollDataId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payroll_id")
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "payroll_id")
+    @Column(name = "payroll_id")
     private long payrollId;
 
     @ManyToMany

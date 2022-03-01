@@ -37,7 +37,7 @@ public class PayrollDataController {
         return ResponseEntity.ok(payrollData);
     }
 
-    @PostMapping("/new-payroll")
+    @PostMapping("/new-payroll-data")
     public PayrollData createPayroll (@RequestBody PayrollData payrollData) { return payrollDataRepository.save(payrollData); }
 
 }
