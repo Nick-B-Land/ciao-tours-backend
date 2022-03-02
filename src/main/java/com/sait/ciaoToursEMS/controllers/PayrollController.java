@@ -33,6 +33,10 @@ public class PayrollController {
     public List<Payroll> getPayrollByEmployeeID(@PathVariable Long id) { return payrollRepository.findByEmployeeId(id); }
 
     @PostMapping("/new-payroll")
-    public Payroll createPayroll (@RequestBody Payroll payroll) { return payrollRepository.save(payroll); }
+    public ResponseEntity<Payroll> createPayroll (@RequestBody Payroll payroll) {
+        Payroll p = payrollRepository.save(payroll);
+
+        return ResponseEntity.ok(p);
+    }
 
 }
