@@ -29,6 +29,9 @@ public class PayrollController {
         return ResponseEntity.ok(payroll);
     }
 
+    @GetMapping("/payroll/eid/{id}")
+    public List<Payroll> getPayrollByEmployeeID(@PathVariable Long id) { return payrollRepository.findByEmployeeId(id); }
+
     @PostMapping("/new-payroll")
     public Payroll createPayroll (@RequestBody Payroll payroll) { return payrollRepository.save(payroll); }
 

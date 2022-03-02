@@ -13,19 +13,22 @@ public class Payroll {
     @Column(name = "payroll_id")
     private long payrollId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "employee_id")
+    @Column(name = "employee_id")
+    private long employeeId;
 
     @Column(name = "date_of_payroll")
-    private  Date dateOfPayroll  ;
+    private Date dateOfPayroll;
 
     public Payroll(){}
 
-    public Payroll(long payrollId, Employee employee, Date dateOfPayroll) {
-        this.payrollId = payrollId;
-        this.employee = employee;
-        this.dateOfPayroll = dateOfPayroll;
+    public long getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public long getPayrollId() {
@@ -34,14 +37,6 @@ public class Payroll {
 
     public void setPayrollId(long payrollId) {
         this.payrollId = payrollId;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 
     public Date getDateOfPayroll() {
@@ -57,19 +52,21 @@ public class Payroll {
         if (this == o) return true;
         if (!(o instanceof Payroll)) return false;
         Payroll payroll = (Payroll) o;
-        return getPayrollId() == payroll.getPayrollId() && Objects.equals(getEmployee(), payroll.getEmployee()) && Objects.equals(getDateOfPayroll(), payroll.getDateOfPayroll());
+        return payrollId == payroll.payrollId &&
+                employeeId == payroll.employeeId &&
+                Objects.equals(dateOfPayroll, payroll.dateOfPayroll);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPayrollId(), getEmployee(), getDateOfPayroll());
+        return Objects.hash(payrollId, employeeId, dateOfPayroll);
     }
 
     @Override
     public String toString() {
-        return "payroll{" +
+        return "Payroll{" +
                 "payrollId=" + payrollId +
-                ", employee=" + employee +
+                ", employeeId=" + employeeId +
                 ", dateOfPayroll=" + dateOfPayroll +
                 '}';
     }
