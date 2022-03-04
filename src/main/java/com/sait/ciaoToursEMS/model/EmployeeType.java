@@ -1,13 +1,11 @@
 package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
-import java.time.*;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Employee_type")
-public class Employee_type {
+public class EmployeeType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employeeTypeId;
@@ -15,9 +13,9 @@ public class Employee_type {
     @Column(name = "description")
     private String description;
 
-    public Employee_type(){}
+    public EmployeeType(){}
 
-    public Employee_type(long employeeTypeId, String description) {
+    public EmployeeType(long employeeTypeId, String description) {
         this.employeeTypeId = employeeTypeId;
         this.description = description;
     }
@@ -41,8 +39,8 @@ public class Employee_type {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Employee_type)) return false;
-        Employee_type that = (Employee_type) o;
+        if (!(o instanceof EmployeeType)) return false;
+        EmployeeType that = (EmployeeType) o;
         return getEmployeeTypeId() == that.getEmployeeTypeId() && Objects.equals(getDescription(), that.getDescription());
     }
 

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Objects;
 @Entity
 @Table(name = "paystubs")
-public class paystub {
+public class Paystub {
     @Id
     @GeneratedValue
     @Column(name = "paystub_id")
@@ -56,9 +56,9 @@ public class paystub {
     @Column(name = "date_of_paystub")
     private Date dateOfPaystub;
 
-    public paystub(){}
+    public Paystub(){}
 
-    public paystub(long paystubId, String firstName, String lastName, String address, String city,
+    public Paystub(long paystubId, String firstName, String lastName, String address, String city,
                    String emailAddress, String description, float hourlyWage, int numberOfWorkdays,
                    int numberOfDaysOff, float nonSalaryIncome, float expenseAmount, int numberOfHours,
                    float monthlySalary, float rate, Date dateOfPaystub) {
@@ -211,8 +211,8 @@ public class paystub {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof paystub)) return false;
-        paystub paystub = (paystub) o;
+        if (!(o instanceof Paystub)) return false;
+        Paystub paystub = (Paystub) o;
         return getPaystubId() == paystub.getPaystubId() && Float.compare(paystub.getHourlyWage(), getHourlyWage()) == 0 && getNumberOfWorkdays() == paystub.getNumberOfWorkdays() && getNumberOfDaysOff() == paystub.getNumberOfDaysOff() && Float.compare(paystub.getNonSalaryIncome(), getNonSalaryIncome()) == 0 && Float.compare(paystub.getExpenseAmount(), getExpenseAmount()) == 0 && getNumberOfHours() == paystub.getNumberOfHours() && Float.compare(paystub.getMonthlySalary(), getMonthlySalary()) == 0 && Float.compare(paystub.getRate(), getRate()) == 0 && Objects.equals(getFirstName(), paystub.getFirstName()) && Objects.equals(getLastName(), paystub.getLastName()) && Objects.equals(getAddress(), paystub.getAddress()) && Objects.equals(getCity(), paystub.getCity()) && Objects.equals(getEmailAddress(), paystub.getEmailAddress()) && Objects.equals(getDescription(), paystub.getDescription()) && Objects.equals(getDateOfPaystub(), paystub.getDateOfPaystub());
     }
 
