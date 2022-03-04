@@ -15,24 +15,21 @@ public class PayrollData {
     @Id
     @GeneratedValue
     @Column(name = "payroll_data_id")
-    private long PayrollDataId;
+    private long payrollDataId;
 
     //@ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name = "payroll_id")
     @Column(name = "payroll_id")
     private long payrollId;
 
-    @ManyToMany
-    @JoinTable(name = "payroll_data_event",
-            joinColumns = @JoinColumn(name = "Payroll_data_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id"))
-    private Set<Event> roles = new HashSet<>();
+    @Column(name = "payroll_event")
+    private int payrollEvent;
 
     @Column(name = "date_of_payroll_data")
     private  Date dateOfPayrollData;
 
     @Column(name = "no_of_working_hours")
-    private   int noOfWorkingHours;
+    private int noOfWorkingHours;
 
     @Column(name = "time_off")
     private  double timeOff;
@@ -84,13 +81,13 @@ public class PayrollData {
 
     public PayrollData(){}
 
-    public PayrollData(long payrollDataId, long payrollId, Set<Event> roles, Date dateOfPayrollData, int noOfWorkingHours,
+    public PayrollData(long payrollDataId, long payrollId, int payrollEvent, Date dateOfPayrollData, int noOfWorkingHours,
                        double timeOff, String officeUsage, String otherUsage, float usageCost, String dailyAssistanceClient, LocalDateTime dailyAssistanceStartDate,
                        LocalDateTime dailyAssistanceEndDate, float dailyAssistanceFee, String tourBookingAdminDescription, int tourBookingNumOfHours, String tourBookingClient,
                        float tourBookingAdminFee, Date dayOfExpense, String expenseDescription, float expenseAmount, Date expenseDate){
-        PayrollDataId = payrollDataId;
+        this.payrollDataId = payrollDataId;
         this.payrollId = payrollId;
-        this.roles = roles;
+        this.payrollEvent = payrollEvent;
         this.dateOfPayrollData = dateOfPayrollData;
         this.noOfWorkingHours = noOfWorkingHours;
         this.timeOff = timeOff;
@@ -112,11 +109,11 @@ public class PayrollData {
     }
 
     public long getPayrollDataId() {
-        return PayrollDataId;
+        return payrollDataId;
     }
 
     public void setPayrollDataId(long payrollDataId) {
-        PayrollDataId = payrollDataId;
+        this.payrollDataId = payrollDataId;
     }
 
     public long getPayrollId() {
@@ -127,12 +124,12 @@ public class PayrollData {
         this.payrollId = payrollId;
     }
 
-    public Set<Event> getRoles() {
-        return roles;
+    public int getPayrollEvent() {
+        return payrollEvent;
     }
 
-    public void setRoles(Set<Event> roles) {
-        this.roles = roles;
+    public void setPayrollEvent(int payrollEvent) {
+        this.payrollEvent = payrollEvent;
     }
 
     public Date getDateOfPayrollData() {
@@ -284,20 +281,20 @@ public class PayrollData {
         if (this == o) return true;
         if (!(o instanceof PayrollData)) return false;
         PayrollData that = (PayrollData) o;
-        return getPayrollDataId() == that.getPayrollDataId() && getNoOfWorkingHours() == that.getNoOfWorkingHours() && Double.compare(that.getTimeOff(), getTimeOff()) == 0 && Float.compare(that.getUsageCost(), getUsageCost()) == 0 && Float.compare(that.getDailyAssistanceFee(), getDailyAssistanceFee()) == 0 && getTourBookingNumOfHours() == that.getTourBookingNumOfHours() && Float.compare(that.getTourBookingAdminFee(), getTourBookingAdminFee()) == 0 && Float.compare(that.getExpenseAmount(), getExpenseAmount()) == 0 && Objects.equals(getPayrollId(), that.getPayrollId()) && Objects.equals(getRoles(), that.getRoles()) && Objects.equals(getDateOfPayrollData(), that.getDateOfPayrollData()) && Objects.equals(getOfficeUsage(), that.getOfficeUsage()) && Objects.equals(getOtherUsage(), that.getOtherUsage()) && Objects.equals(getDailyAssistanceClient(), that.getDailyAssistanceClient()) && Objects.equals(getDailyAssistanceStartDate(), that.getDailyAssistanceStartDate()) && Objects.equals(getDailyAssistanceEndDate(), that.getDailyAssistanceEndDate()) && Objects.equals(getTourBookingAdminDescription(), that.getTourBookingAdminDescription()) && Objects.equals(getTourBookingClient(), that.getTourBookingClient()) && Objects.equals(getDayOfExpense(), that.getDayOfExpense()) && Objects.equals(getExpenseDescription(), that.getExpenseDescription()) && Objects.equals(getExpenseDate(), that.getExpenseDate());
+        return getPayrollDataId() == that.getPayrollDataId() && getNoOfWorkingHours() == that.getNoOfWorkingHours() && Double.compare(that.getTimeOff(), getTimeOff()) == 0 && Float.compare(that.getUsageCost(), getUsageCost()) == 0 && Float.compare(that.getDailyAssistanceFee(), getDailyAssistanceFee()) == 0 && getTourBookingNumOfHours() == that.getTourBookingNumOfHours() && Float.compare(that.getTourBookingAdminFee(), getTourBookingAdminFee()) == 0 && Float.compare(that.getExpenseAmount(), getExpenseAmount()) == 0 && Objects.equals(getPayrollId(), that.getPayrollId()) && Objects.equals(getPayrollEvent(), that.getPayrollEvent()) && Objects.equals(getDateOfPayrollData(), that.getDateOfPayrollData()) && Objects.equals(getOfficeUsage(), that.getOfficeUsage()) && Objects.equals(getOtherUsage(), that.getOtherUsage()) && Objects.equals(getDailyAssistanceClient(), that.getDailyAssistanceClient()) && Objects.equals(getDailyAssistanceStartDate(), that.getDailyAssistanceStartDate()) && Objects.equals(getDailyAssistanceEndDate(), that.getDailyAssistanceEndDate()) && Objects.equals(getTourBookingAdminDescription(), that.getTourBookingAdminDescription()) && Objects.equals(getTourBookingClient(), that.getTourBookingClient()) && Objects.equals(getDayOfExpense(), that.getDayOfExpense()) && Objects.equals(getExpenseDescription(), that.getExpenseDescription()) && Objects.equals(getExpenseDate(), that.getExpenseDate());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPayrollDataId(), getPayrollId(), getRoles(), getDateOfPayrollData(), getNoOfWorkingHours(), getTimeOff(), getOfficeUsage(), getOtherUsage(), getUsageCost(), getDailyAssistanceClient(), getDailyAssistanceStartDate(), getDailyAssistanceEndDate(), getDailyAssistanceFee(), getTourBookingAdminDescription(), getTourBookingNumOfHours(), getTourBookingClient(), getTourBookingAdminFee(), getDayOfExpense(), getExpenseDescription(), getExpenseAmount(), getExpenseDate());
+        return Objects.hash(getPayrollDataId(), getPayrollId(), getPayrollEvent(), getDateOfPayrollData(), getNoOfWorkingHours(), getTimeOff(), getOfficeUsage(), getOtherUsage(), getUsageCost(), getDailyAssistanceClient(), getDailyAssistanceStartDate(), getDailyAssistanceEndDate(), getDailyAssistanceFee(), getTourBookingAdminDescription(), getTourBookingNumOfHours(), getTourBookingClient(), getTourBookingAdminFee(), getDayOfExpense(), getExpenseDescription(), getExpenseAmount(), getExpenseDate());
     }
 
     @Override
     public String toString() {
         return "payroll_data{" +
-                "PayrollDataId=" + PayrollDataId +
+                "PayrollDataId=" + payrollDataId +
                 ", payroll=" + payrollId +
-                ", roles=" + roles +
+                ", payrollEvent=" + payrollEvent +
                 ", dateOfPayrollData=" + dateOfPayrollData +
                 ", noOfWorkingHours=" + noOfWorkingHours +
                 ", timeOff=" + timeOff +
