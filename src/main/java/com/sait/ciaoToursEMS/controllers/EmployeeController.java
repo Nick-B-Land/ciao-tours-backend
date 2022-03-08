@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/v1/")
 public class EmployeeController {
@@ -21,12 +21,14 @@ public class EmployeeController {
     private EmployeeRepository employeeRepository;
 
     @GetMapping("/employees")
+    //@PreAuthorize("hasRole('ADMIN') or hasRole('HR')")
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
     // create employee rest api
     @PostMapping("/new-employee")
+   // @PreAuthorize("hasRole('ADMIN') or hasRole('HR')")
     public Employee createEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
     }
