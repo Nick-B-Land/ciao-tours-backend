@@ -33,7 +33,9 @@ public class FileController {
 
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+
         String message = "";
+
         try {
             storageService.store(file);
             message = "You successfully uploaded " + file.getOriginalFilename() + "!";
@@ -43,22 +45,27 @@ public class FileController {
             message = "FAIL to upload " + file.getOriginalFilename() + "!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
         }
+
     }
 
     @GetMapping("/files")
     public ResponseEntity<List<ResponseFile>> getListFiles() {
+
         List<ResponseFile> files = storageService.getAllFiles().map(dbFile -> {
+
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
                     .path("/api/v1/files/")
                     .path(dbFile.getId())
                     .toUriString();
+
             return new ResponseFile(
                     dbFile.getName(),
                     fileDownloadUri,
                     dbFile.getType(),
                     dbFile.getData().length);
         }).collect(Collectors.toList());
+
         return ResponseEntity.status(HttpStatus.OK).body(files);
     }
 
