@@ -1,7 +1,6 @@
-package com.sait.ciaoToursEMS.repositorys;
+package com.sait.ciaoToursEMS.upload.repository;
 
-
-import com.sait.ciaoToursEMS.model.FileDB;
+import com.sait.ciaoToursEMS.upload.model.FileDB;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

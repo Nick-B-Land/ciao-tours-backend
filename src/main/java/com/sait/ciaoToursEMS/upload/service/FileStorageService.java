@@ -1,7 +1,7 @@
-package com.sait.ciaoToursEMS.services;
+package com.sait.ciaoToursEMS.upload.service;
 
-import com.sait.ciaoToursEMS.model.FileDB;
-import com.sait.ciaoToursEMS.repositorys.FileDBRepository;
+import com.sait.ciaoToursEMS.upload.model.FileDB;
+import com.sait.ciaoToursEMS.upload.repository.FileDBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,9 +19,9 @@ import java.util.stream.Stream;
 
 @Service
 public class FileStorageService {
+
     @Autowired
     private FileDBRepository fileDBRepository;
-
 
     public FileDB store(MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());

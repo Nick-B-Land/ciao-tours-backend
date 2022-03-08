@@ -1,4 +1,4 @@
-package com.sait.ciaoToursEMS.model;
+package com.sait.ciaoToursEMS.upload.model;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
