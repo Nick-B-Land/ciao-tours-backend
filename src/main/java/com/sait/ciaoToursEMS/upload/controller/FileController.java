@@ -12,12 +12,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * FileController
+ * @author Duncan Bain
+ * @version 1.0
+ * Handles file uploads and retrieval.
+ * Uploaded files need to be sent as multipart file form data to the api.
+ */
+
 @Controller
 @CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/api/v1/")
 public class FileController {
 
     @Autowired
