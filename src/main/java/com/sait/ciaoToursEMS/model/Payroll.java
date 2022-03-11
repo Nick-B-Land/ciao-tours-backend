@@ -21,7 +21,17 @@ public class Payroll {
     @Column(name = "date_of_payroll")
     private Date dateOfPayroll;
 
+    @Column(name = "is_processed")
+    private int isProcessed;
+
     public Payroll(){}
+
+    public Payroll(long payrollId, long employeeId, Date dateOfPayroll, int isProcessed) {
+        this.payrollId = payrollId;
+        this.employeeId = employeeId;
+        this.dateOfPayroll = dateOfPayroll;
+        this.isProcessed = isProcessed;
+    }
 
     public long getEmployeeId() {
         return employeeId;
@@ -47,6 +57,14 @@ public class Payroll {
         this.dateOfPayroll = dateOfPayroll;
     }
 
+    public int getIsProcessed() {
+        return isProcessed;
+    }
+
+    public void setIsProcessed(int isProcessed) {
+        this.isProcessed = isProcessed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,6 +72,7 @@ public class Payroll {
         Payroll payroll = (Payroll) o;
         return payrollId == payroll.payrollId &&
                 employeeId == payroll.employeeId &&
+                isProcessed == payroll.isProcessed &&
                 Objects.equals(dateOfPayroll, payroll.dateOfPayroll);
     }
 

@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface PayrollRepository extends JpaRepository<Payroll, Long> {
     List<Payroll> findByEmployeeId(Long id);
+
+    List<Payroll> findByIsProcessed(int status);
 }

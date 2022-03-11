@@ -39,4 +39,6 @@ public class PayrollController {
         return ResponseEntity.ok(p);
     }
 
+    @GetMapping("/payroll/is-processed/{id}")
+    public List<Payroll> getPayrollByIsProcessed(@PathVariable int id) { return payrollRepository.findByIsProcessed(id); }
 }

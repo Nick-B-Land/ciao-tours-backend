@@ -2,6 +2,7 @@ package com.sait.ciaoToursEMS.controllers;
 
 import com.sait.ciaoToursEMS.exceptions.ResourceNotFoundException;
 import com.sait.ciaoToursEMS.model.Employee;
+import com.sait.ciaoToursEMS.model.Payroll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +26,9 @@ public class EmployeeController {
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
+
+    @GetMapping("/employees/{id}")
+    public List<Employee> getEmployeeById(@PathVariable Long id) { return employeeRepository.findByEmployeeId(id); }
 
     // create employee rest api
     @PostMapping("/new-employee")
