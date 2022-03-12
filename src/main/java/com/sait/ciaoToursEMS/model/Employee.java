@@ -15,7 +15,9 @@ public class Employee {
     private long employeeId;
 
     @ManyToMany
-    @JoinTable(name = "EID_ETID", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
+    @JoinTable(name = "EID_ETID",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
     private Set<EmployeeType> roles = new HashSet<>();
 
     @Column(name = "first_name")
@@ -48,8 +50,8 @@ public class Employee {
     @Column(name = "is_admin")
     private long isAdmin;
 
-    @Column(name = "is_bookeeper")
-    private long isBookeeper;
+    @Column(name = "is_bookkeeper")
+    private long isBookkeeper;
 
     @Column(name = "institution_id")
     private long institutionId;
@@ -78,7 +80,7 @@ public class Employee {
         this.hourlyWage = hourlyWage;
         this.monthlySalary = monthlySalary;
         this.isAdmin = isAdmin;
-        this.isBookeeper = isBookeeper;
+        this.isBookkeeper = isBookeeper;
         this.institutionId = institutionId;
         this.bankAccountNumber = bankAccountNumber;
         this.transitId = transitId;
@@ -180,12 +182,12 @@ public class Employee {
         this.isAdmin = isAdmin;
     }
 
-    public long getIsBookeeper() {
-        return isBookeeper;
+    public long getIsBookkeeper() {
+        return isBookkeeper;
     }
 
-    public void setIsBookeeper(long isBookeeper) {
-        this.isBookeeper = isBookeeper;
+    public void setIsBookkeeper(long isBookkeeper) {
+        this.isBookkeeper = isBookkeeper;
     }
 
     public long getInstitutionId() {
@@ -222,7 +224,7 @@ public class Employee {
         return getEmployeeId() == employee.getEmployeeId()
                 && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0
                 && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0
-                && getIsAdmin() == employee.getIsAdmin() && getIsBookeeper() == employee.getIsBookeeper()
+                && getIsAdmin() == employee.getIsAdmin() && getIsBookkeeper() == employee.getIsBookkeeper()
                 && getInstitutionId() == employee.getInstitutionId()
                 && getBankAccountNumber() == employee.getBankAccountNumber()
                 && getTransitId() == employee.getTransitId() && Objects.equals(getRoles(), employee.getRoles())
@@ -238,7 +240,7 @@ public class Employee {
     public int hashCode() {
         return Objects.hash(getEmployeeId(), getRoles(), getFirstName(), getLastName(), getAddress(), getCity(),
                 getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(),
-                getIsAdmin(), getIsBookeeper(), getInstitutionId(), getBankAccountNumber(), getTransitId());
+                getIsAdmin(), getIsBookkeeper(), getInstitutionId(), getBankAccountNumber(), getTransitId());
     }
 
     @Override
@@ -256,7 +258,7 @@ public class Employee {
                 ", hourlyWage=" + hourlyWage +
                 ", monthlySalary=" + monthlySalary +
                 ", isAdmin=" + isAdmin +
-                ", isBookeeper=" + isBookeeper +
+                ", isBookeeper=" + isBookkeeper +
                 ", institutionId=" + institutionId +
                 ", bankAccountNumber=" + bankAccountNumber +
                 ", transitId=" + transitId +
