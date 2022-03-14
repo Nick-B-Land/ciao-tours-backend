@@ -33,6 +33,12 @@ public class Employee {
     @Column(name = "email_address")
     private String emailAddress;
 
+    @Column(name = "employee_type")
+    private int employeeType;
+
+    @Column(name = "job_title")
+    private String jobTitle;
+
     @Column(name = "employee_start_date")
     private Date employeeStartDate;
 
@@ -62,10 +68,7 @@ public class Employee {
 
     public Employee(){}
 
-    public Employee(long employeeId, Set<EmployeeType> roles, String firstName, String lastName, String address,
-                    String city, String emailAddress, Date employeeStartDate, Date employeeEndDate,
-                    float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId,
-                    long bankAccountNumber, long transitId) {
+    public Employee(long employeeId, Set<EmployeeType> roles, String firstName, String lastName, String address, String city, String emailAddress, int employeeType, String jobTitle, Date employeeStartDate, Date employeeEndDate, float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId, long bankAccountNumber, long transitId) {
         this.employeeId = employeeId;
         this.roles = roles;
         this.firstName = firstName;
@@ -73,6 +76,8 @@ public class Employee {
         this.address = address;
         this.city = city;
         this.emailAddress = emailAddress;
+        this.employeeType = employeeType;
+        this.jobTitle = jobTitle;
         this.employeeStartDate = employeeStartDate;
         this.employeeEndDate = employeeEndDate;
         this.hourlyWage = hourlyWage;
@@ -82,6 +87,22 @@ public class Employee {
         this.institutionId = institutionId;
         this.bankAccountNumber = bankAccountNumber;
         this.transitId = transitId;
+    }
+
+    public int getEmployeeType() {
+        return employeeType;
+    }
+
+    public void setEmployeeType(int employeeType) {
+        this.employeeType = employeeType;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
     public long getEmployeeId() {
@@ -214,31 +235,32 @@ public class Employee {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Employee))
-            return false;
+        if (this == o) return true;
+        if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return getEmployeeId() == employee.getEmployeeId()
-                && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0
-                && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0
-                && getIsAdmin() == employee.getIsAdmin() && getIsBookeeper() == employee.getIsBookeeper()
-                && getInstitutionId() == employee.getInstitutionId()
-                && getBankAccountNumber() == employee.getBankAccountNumber()
-                && getTransitId() == employee.getTransitId() && Objects.equals(getRoles(), employee.getRoles())
-                && Objects.equals(getFirstName(), employee.getFirstName())
-                && Objects.equals(getLastName(), employee.getLastName())
-                && Objects.equals(getAddress(), employee.getAddress()) && Objects.equals(getCity(), employee.getCity())
-                && Objects.equals(getEmailAddress(), employee.getEmailAddress())
-                && Objects.equals(getEmployeeStartDate(), employee.getEmployeeStartDate())
-                && Objects.equals(getEmployeeEndDate(), employee.getEmployeeEndDate());
+        return employeeId == employee.employeeId &&
+                employeeType == employee.employeeType &&
+                Float.compare(employee.hourlyWage, hourlyWage) == 0 &&
+                Float.compare(employee.monthlySalary, monthlySalary) == 0 &&
+                isAdmin == employee.isAdmin &&
+                isBookeeper == employee.isBookeeper &&
+                institutionId == employee.institutionId &&
+                bankAccountNumber == employee.bankAccountNumber &&
+                transitId == employee.transitId &&
+                Objects.equals(roles, employee.roles) &&
+                Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(lastName, employee.lastName) &&
+                Objects.equals(address, employee.address) &&
+                Objects.equals(city, employee.city) &&
+                Objects.equals(emailAddress, employee.emailAddress) &&
+                Objects.equals(jobTitle, employee.jobTitle) &&
+                Objects.equals(employeeStartDate, employee.employeeStartDate) &&
+                Objects.equals(employeeEndDate, employee.employeeEndDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmployeeId(), getRoles(), getFirstName(), getLastName(), getAddress(), getCity(),
-                getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(),
-                getIsAdmin(), getIsBookeeper(), getInstitutionId(), getBankAccountNumber(), getTransitId());
+        return Objects.hash(employeeId, roles, firstName, lastName, address, city, emailAddress, employeeType, jobTitle, employeeStartDate, employeeEndDate, hourlyWage, monthlySalary, isAdmin, isBookeeper, institutionId, bankAccountNumber, transitId);
     }
 
     @Override
@@ -251,6 +273,8 @@ public class Employee {
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
+                ", employeeType=" + employeeType +
+                ", jobTitle='" + jobTitle + '\'' +
                 ", employeeStartDate=" + employeeStartDate +
                 ", employeeEndDate=" + employeeEndDate +
                 ", hourlyWage=" + hourlyWage +

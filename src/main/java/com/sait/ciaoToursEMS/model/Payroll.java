@@ -24,13 +24,17 @@ public class Payroll {
     @Column(name = "is_processed")
     private int isProcessed;
 
+    @Column(name = "is_flagged")
+    private int isFlagged;
+
     public Payroll(){}
 
-    public Payroll(long payrollId, long employeeId, Date dateOfPayroll, int isProcessed) {
+    public Payroll(long payrollId, long employeeId, Date dateOfPayroll, int isProcessed, int isFlagged) {
         this.payrollId = payrollId;
         this.employeeId = employeeId;
         this.dateOfPayroll = dateOfPayroll;
         this.isProcessed = isProcessed;
+        this.isFlagged = isFlagged;
     }
 
     public long getEmployeeId() {
@@ -65,6 +69,14 @@ public class Payroll {
         this.isProcessed = isProcessed;
     }
 
+    public int getIsFlagged() {
+        return isFlagged;
+    }
+
+    public void setIsFlagged(int isFlagged) {
+        this.isFlagged = isFlagged;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,12 +85,13 @@ public class Payroll {
         return payrollId == payroll.payrollId &&
                 employeeId == payroll.employeeId &&
                 isProcessed == payroll.isProcessed &&
+                isFlagged == payroll.isFlagged &&
                 Objects.equals(dateOfPayroll, payroll.dateOfPayroll);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(payrollId, employeeId, dateOfPayroll);
+        return Objects.hash(payrollId, employeeId, dateOfPayroll, isProcessed, isFlagged);
     }
 
     @Override
@@ -87,6 +100,8 @@ public class Payroll {
                 "payrollId=" + payrollId +
                 ", employeeId=" + employeeId +
                 ", dateOfPayroll=" + dateOfPayroll +
+                ", isProcessed=" + isProcessed +
+                ", isFlagged=" + isFlagged +
                 '}';
     }
 }
