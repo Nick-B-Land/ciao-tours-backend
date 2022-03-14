@@ -29,6 +29,9 @@ public class Employee {
     @Embedded
     private Address address;
 
+    @Embedded
+    private BankInformation bankInformation;
+
     @Column(name = "email_address")
     private String emailAddress;
 
@@ -44,26 +47,11 @@ public class Employee {
     @Column(name = "monthly_salary")
     private float monthlySalary;
 
-    @Column(name = "is_admin")
-    private long isAdmin;
-
-    @Column(name = "is_bookkeeper")
-    private long isBookkeeper;
-
-    @Column(name = "institution_id")
-    private long institutionId;
-
-    @Column(name = "bank_account_number")
-    private long bankAccountNumber;
-
-    @Column(name = "transit_id")
-    private long transitId;
-
     public Employee(){}
 
     public Employee(long employeeId, Set<EmployeeType> roles, String firstName, String lastName, String address,
                     String city, String emailAddress, Date employeeStartDate, Date employeeEndDate,
-                    float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId,
+                    float hourlyWage, float monthlySalary, long institutionId,
                     long bankAccountNumber, long transitId) {
         this.employeeId = employeeId;
         this.roles = roles;
@@ -76,11 +64,9 @@ public class Employee {
         this.employeeEndDate = employeeEndDate;
         this.hourlyWage = hourlyWage;
         this.monthlySalary = monthlySalary;
-        this.isAdmin = isAdmin;
-        this.isBookkeeper = isBookeeper;
-        this.institutionId = institutionId;
-        this.bankAccountNumber = bankAccountNumber;
-        this.transitId = transitId;
+        this.bankInformation.setInstitutionID(institutionId);
+        this.bankInformation.setBankAccountNumber(bankAccountNumber);
+        this.bankInformation.setTransitNumber(transitId);
     }
 
     public long getEmployeeId() {
@@ -171,44 +157,28 @@ public class Employee {
         this.monthlySalary = monthlySalary;
     }
 
-    public long getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(long isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
-    public long getIsBookkeeper() {
-        return isBookkeeper;
-    }
-
-    public void setIsBookkeeper(long isBookkeeper) {
-        this.isBookkeeper = isBookkeeper;
-    }
-
     public long getInstitutionId() {
-        return institutionId;
+        return bankInformation.getInstitutionID();
     }
 
     public void setInstitutionId(long institutionId) {
-        this.institutionId = institutionId;
+        bankInformation.setInstitutionID(institutionId);
     }
 
     public long getBankAccountNumber() {
-        return bankAccountNumber;
+        return bankInformation.getBankAccountNumber();
     }
 
     public void setBankAccountNumber(long bankAccountNumber) {
-        this.bankAccountNumber = bankAccountNumber;
+        bankInformation.setBankAccountNumber(bankAccountNumber);
     }
 
     public long getTransitId() {
-        return transitId;
+        return bankInformation.getTransitNumber();
     }
 
     public void setTransitId(long transitId) {
-        this.transitId = transitId;
+        bankInformation.setTransitNumber(transitId);
     }
 
     @Override
@@ -221,7 +191,6 @@ public class Employee {
         return getEmployeeId() == employee.getEmployeeId()
                 && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0
                 && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0
-                && getIsAdmin() == employee.getIsAdmin() && getIsBookkeeper() == employee.getIsBookkeeper()
                 && getInstitutionId() == employee.getInstitutionId()
                 && getBankAccountNumber() == employee.getBankAccountNumber()
                 && getTransitId() == employee.getTransitId() && Objects.equals(getRoles(), employee.getRoles())
@@ -237,7 +206,7 @@ public class Employee {
     public int hashCode() {
         return Objects.hash(getEmployeeId(), getRoles(), getFirstName(), getLastName(), getAddress(), getCity(),
                 getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(),
-                getIsAdmin(), getIsBookkeeper(), getInstitutionId(), getBankAccountNumber(), getTransitId());
+                getInstitutionId(), getBankAccountNumber(), getTransitId());
     }
 
     @Override
@@ -254,11 +223,9 @@ public class Employee {
                 ", employeeEndDate=" + employeeEndDate +
                 ", hourlyWage=" + hourlyWage +
                 ", monthlySalary=" + monthlySalary +
-                ", isAdmin=" + isAdmin +
-                ", isBookeeper=" + isBookkeeper +
-                ", institutionId=" + institutionId +
-                ", bankAccountNumber=" + bankAccountNumber +
-                ", transitId=" + transitId +
+                ", institutionId=" + bankInformation.getInstitutionID() +
+                ", bankAccountNumber=" + bankInformation.getBankAccountNumber() +
+                ", transitId=" + bankInformation.getTransitNumber() +
                 '}';
     }
 }
