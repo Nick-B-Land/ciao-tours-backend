@@ -26,8 +26,11 @@ public class Employee {
     @Column(name = "last_name")
     private String lastName;
 
-    @Embedded
-    private Address address;
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "city")
+    private String city;
 
     @Column(name = "email_address")
     private String emailAddress;
@@ -69,8 +72,8 @@ public class Employee {
         this.roles = roles;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address.setAddress(address);
-        this.address.setCity(city);
+        this.address = address;
+        this.city = city;
         this.emailAddress = emailAddress;
         this.employeeStartDate = employeeStartDate;
         this.employeeEndDate = employeeEndDate;
@@ -116,19 +119,19 @@ public class Employee {
     }
 
     public String getAddress() {
-        return address.getAddress();
+        return address;
     }
 
     public void setAddress(String address) {
-        this.address.setAddress(address);
+        this.address = address;
     }
 
     public String getCity() {
-        return address.getCity();
+        return city;
     }
 
     public void setCity(String city) {
-        this.address.setCity(city);
+        this.city = city;
     }
 
     public String getEmailAddress() {
@@ -247,8 +250,8 @@ public class Employee {
                 ", roles=" + roles +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", address='" + address.getAddress() + '\'' +
-                ", city='" + address.getCity() + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", employeeStartDate=" + employeeStartDate +
                 ", employeeEndDate=" + employeeEndDate +
