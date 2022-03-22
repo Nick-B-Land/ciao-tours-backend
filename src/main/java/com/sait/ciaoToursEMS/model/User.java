@@ -41,7 +41,7 @@ public class User {
 
     public User() {}
 
-    public User(@NotBlank String username, @NotBlank String password, @NotBlank Long employee_id) {
+    public User(@NotBlank String username, @NotBlank String password) {
         this.username = username;
         this.password = password;
     }
