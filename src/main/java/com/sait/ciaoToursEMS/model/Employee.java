@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+
+//employee types: 0-Hourly 1-Salary 2-Italian
 @Entity
 @Table(name = "employee")
 public class Employee {
