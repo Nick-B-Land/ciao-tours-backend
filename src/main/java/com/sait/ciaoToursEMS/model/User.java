@@ -23,7 +23,7 @@ public class User {
     @Column(name = "enabled", nullable = false)
     private Boolean isEnabled = true;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
@@ -57,10 +57,6 @@ public class User {
 
     public Long getId() {
         return user_id;
-    }
-
-    public void setId(Long id) {
-        this.user_id = id;
     }
 
     public String getUsername() {
