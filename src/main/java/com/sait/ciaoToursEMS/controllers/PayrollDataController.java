@@ -1,13 +1,16 @@
 package com.sait.ciaoToursEMS.controllers;
 
 import com.sait.ciaoToursEMS.exceptions.ResourceNotFoundException;
+import com.sait.ciaoToursEMS.model.Employee;
 import com.sait.ciaoToursEMS.model.PayrollData;
 import com.sait.ciaoToursEMS.repositorys.PayrollDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -39,5 +42,16 @@ public class PayrollDataController {
 
     @PostMapping("/new-payroll-data")
     public PayrollData createPayroll (@RequestBody PayrollData payrollData) { return payrollDataRepository.save(payrollData); }
+
+    @DeleteMapping("/delete-payroll-data/{id}")
+    public ResponseEntity<Map<String, Boolean>> deletePayrollData(@PathVariable Long id){
+        PayrollData payrollData = payrollDataRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No payroll data found with this id  :" + id));
+
+        payrollDataRepository.delete(payrollData);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
 
 }
