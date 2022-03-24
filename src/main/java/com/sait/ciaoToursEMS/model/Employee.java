@@ -59,10 +59,9 @@ public class Employee {
 
     public Employee(){}
 
-    public Employee(long employeeId, Set<EmployeeType> roles, String firstName, String lastName, String address,
+    public Employee(Set<EmployeeType> roles, String firstName, String lastName, String address,
                     String city, String emailAddress, Date employeeStartDate, Date employeeEndDate,
                     float hourlyWage, float monthlySalary, long institutionId,long bankAccountNumber, long transitId) {
-        this.employeeId = employeeId;
         this.roles = roles;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -80,10 +79,6 @@ public class Employee {
 
     public long getEmployeeId() {
         return employeeId;
-    }
-
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
     }
 
     public Set<EmployeeType> getRoles() {

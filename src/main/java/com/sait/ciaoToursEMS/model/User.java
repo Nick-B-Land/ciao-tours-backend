@@ -23,7 +23,7 @@ public class User {
     @Column(name = "enabled", nullable = false)
     private Boolean isEnabled = true;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
