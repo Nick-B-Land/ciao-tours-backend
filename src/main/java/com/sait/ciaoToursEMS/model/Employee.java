@@ -1,10 +1,7 @@
 package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "employee")
@@ -56,6 +53,17 @@ public class Employee {
 
     @Column(name = "enabled", nullable = false)
     private Boolean isEnabled = true;
+
+    @OneToMany(mappedBy = "employee", orphanRemoval = true)
+    private Set<Payroll> payrolls = new LinkedHashSet<>();
+
+    public Set<Payroll> getPayrolls() {
+        return payrolls;
+    }
+
+    public void setPayrolls(Set<Payroll> payrolls) {
+        this.payrolls = payrolls;
+    }
 
     public Employee(){}
 

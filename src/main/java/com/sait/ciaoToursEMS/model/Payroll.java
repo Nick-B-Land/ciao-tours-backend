@@ -13,10 +13,7 @@ public class Payroll {
     @Column(name = "payroll_id")
     private long payrollId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "employee_id")
-    @Column(name = "employee_id")
-    private long employeeId;
+
 
     @Column(name = "date_of_payroll")
     private Date dateOfPayroll;
@@ -24,21 +21,25 @@ public class Payroll {
     @Column(name = "is_processed")
     private int isProcessed;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "employee_id", nullable = false, unique = true)
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     public Payroll(){}
 
     public Payroll(long payrollId, long employeeId, Date dateOfPayroll, int isProcessed) {
         this.payrollId = payrollId;
-        this.employeeId = employeeId;
+
         this.dateOfPayroll = dateOfPayroll;
         this.isProcessed = isProcessed;
-    }
-
-    public long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
     }
 
     public long getPayrollId() {
@@ -71,21 +72,19 @@ public class Payroll {
         if (!(o instanceof Payroll)) return false;
         Payroll payroll = (Payroll) o;
         return payrollId == payroll.payrollId &&
-                employeeId == payroll.employeeId &&
                 isProcessed == payroll.isProcessed &&
                 Objects.equals(dateOfPayroll, payroll.dateOfPayroll);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(payrollId, employeeId, dateOfPayroll);
+        return Objects.hash(payrollId, dateOfPayroll);
     }
 
     @Override
     public String toString() {
         return "Payroll{" +
                 "payrollId=" + payrollId +
-                ", employeeId=" + employeeId +
                 ", dateOfPayroll=" + dateOfPayroll +
                 '}';
     }
