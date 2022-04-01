@@ -13,7 +13,7 @@ public class Payroll {
     @Column(name = "payroll_id")
     private long payrollId;
 
-
+    private long employeeIDtoFind;
 
     @Column(name = "date_of_payroll")
     private Date dateOfPayroll;
@@ -22,7 +22,7 @@ public class Payroll {
     private int isProcessed;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "employee_id", nullable = false, unique = true)
+    @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
     public Employee getEmployee() {
@@ -35,11 +35,25 @@ public class Payroll {
 
     public Payroll(){}
 
+    public Payroll(long employeeIDtoFind, Date dateOfPayroll) {
+        this.employeeIDtoFind = employeeIDtoFind;
+        this.dateOfPayroll = dateOfPayroll;
+        this.isProcessed = 0;
+    }
+
     public Payroll(long payrollId, long employeeId, Date dateOfPayroll, int isProcessed) {
         this.payrollId = payrollId;
 
         this.dateOfPayroll = dateOfPayroll;
         this.isProcessed = isProcessed;
+    }
+
+    public long getEmployeeIDtoFind() {
+        return employeeIDtoFind;
+    }
+
+    public void setEmployeeIDtoFind(long employeeIDtoFind) {
+        this.employeeIDtoFind = employeeIDtoFind;
     }
 
     public long getPayrollId() {

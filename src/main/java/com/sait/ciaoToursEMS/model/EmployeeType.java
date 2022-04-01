@@ -3,8 +3,8 @@ package com.sait.ciaoToursEMS.model;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name = "Employee_type")
+//@Entity
+//@Table(name = "Employee_type")
 public class EmployeeType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,17 +15,12 @@ public class EmployeeType {
 
     public EmployeeType(){}
 
-    public EmployeeType(long employeeTypeId, String description) {
-        this.employeeTypeId = employeeTypeId;
+    public EmployeeType(String description) {
         this.description = description;
     }
 
     public long getEmployeeTypeId() {
         return employeeTypeId;
-    }
-
-    public void setEmployeeTypeId(long employeeTypeId) {
-        this.employeeTypeId = employeeTypeId;
     }
 
     public String getDescription() {

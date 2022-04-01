@@ -11,10 +11,6 @@ public class Employee {
     @Column(name = "employee_id")
     private long employeeId;
 
-    @ManyToMany
-    @JoinTable(name = "EID_ETID", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
-    private Set<EmployeeType> roles = new HashSet<>();
-
     @Column(name = "first_name")
     private String firstName;
                                              
@@ -54,23 +50,11 @@ public class Employee {
     @Column(name = "enabled", nullable = false)
     private Boolean isEnabled = true;
 
-    @OneToMany(mappedBy = "employee", orphanRemoval = true)
-    private Set<Payroll> payrolls = new LinkedHashSet<>();
-
-    public Set<Payroll> getPayrolls() {
-        return payrolls;
-    }
-
-    public void setPayrolls(Set<Payroll> payrolls) {
-        this.payrolls = payrolls;
-    }
-
     public Employee(){}
 
     public Employee(Set<EmployeeType> roles, String firstName, String lastName, String address,
                     String city, String emailAddress, Date employeeStartDate, Date employeeEndDate,
                     float hourlyWage, float monthlySalary, long institutionId,long bankAccountNumber, long transitId) {
-        this.roles = roles;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -87,14 +71,6 @@ public class Employee {
 
     public long getEmployeeId() {
         return employeeId;
-    }
-
-    public Set<EmployeeType> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<EmployeeType> roles) {
-        this.roles = roles;
     }
 
     public String getFirstName() {
@@ -202,38 +178,9 @@ public class Employee {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof Employee))
-            return false;
-        Employee employee = (Employee) o;
-        return getEmployeeId() == employee.getEmployeeId()
-                && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0
-                && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0
-                && getInstitutionId() == employee.getInstitutionId()
-                && getBankAccountNumber() == employee.getBankAccountNumber()
-                && getTransitId() == employee.getTransitId() && Objects.equals(getRoles(), employee.getRoles())
-                && Objects.equals(getFirstName(), employee.getFirstName())
-                && Objects.equals(getLastName(), employee.getLastName())
-                && Objects.equals(getAddress(), employee.getAddress()) && Objects.equals(getCity(), employee.getCity())
-                && Objects.equals(getEmailAddress(), employee.getEmailAddress())
-                && Objects.equals(getEmployeeStartDate(), employee.getEmployeeStartDate())
-                && Objects.equals(getEmployeeEndDate(), employee.getEmployeeEndDate());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getEmployeeId(), getRoles(), getFirstName(), getLastName(), getAddress(), getCity(),
-                getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(),
-                getInstitutionId(), getBankAccountNumber(), getTransitId());
-    }
-
-    @Override
     public String toString() {
         return "Employee{" +
                 "employeeId=" + employeeId +
-                ", roles=" + roles +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
@@ -246,6 +193,20 @@ public class Employee {
                 ", institutionId=" + institutionId +
                 ", bankAccountNumber=" + bankAccountNumber +
                 ", transitId=" + transitId +
+                ", isEnabled=" + isEnabled +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return employeeId == employee.employeeId && Float.compare(employee.hourlyWage, hourlyWage) == 0 && Float.compare(employee.monthlySalary, monthlySalary) == 0 && institutionId == employee.institutionId && bankAccountNumber == employee.bankAccountNumber && transitId == employee.transitId &&  Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(address, employee.address) && Objects.equals(city, employee.city) && Objects.equals(emailAddress, employee.emailAddress) && Objects.equals(employeeStartDate, employee.employeeStartDate) && Objects.equals(employeeEndDate, employee.employeeEndDate) && Objects.equals(isEnabled, employee.isEnabled);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeId, firstName, lastName, address, city, emailAddress, employeeStartDate, employeeEndDate, hourlyWage, monthlySalary, institutionId, bankAccountNumber, transitId, isEnabled);
     }
 }
