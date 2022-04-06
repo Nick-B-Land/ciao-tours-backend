@@ -4,18 +4,14 @@ import javax.persistence.*;
 import java.util.*;
 
 
-//employee types: 0-Hourly 1-Salary 2-Italian
+
 @Entity
-@Table(name = "employee")
+@Table(name = "employees")
 public class Employee {
     @Id
     @GeneratedValue
     @Column(name = "employee_id")
     private long employeeId;
-
-    @ManyToMany
-    @JoinTable(name = "EID_ETID", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
-    private Set<EmployeeType> roles = new HashSet<>();
 
     @Column(name = "first_name")
     private String firstName;
@@ -31,12 +27,6 @@ public class Employee {
 
     @Column(name = "email_address")
     private String emailAddress;
-
-    @Column(name = "employee_type")
-    private int employeeType;
-
-    @Column(name = "job_title")
-    private String jobTitle;
 
     @Column(name = "employee_start_date")
     private Date employeeStartDate;
@@ -62,15 +52,19 @@ public class Employee {
     @Column(name = "enabled", nullable = false)
     private Boolean isEnabled = true;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_type_id")
+    private EmployeeType employeeType;
+
     @OneToMany(mappedBy = "employee", orphanRemoval = true)
     private Collection<Payroll> payrolls = new ArrayList<>();
 
-    public Collection<Payroll> getPayrolls() {
-        return payrolls;
+    public EmployeeType getEmployeeType() {
+        return employeeType;
     }
 
-    public void setPayrolls(Collection<Payroll> payrolls) {
-        this.payrolls = payrolls;
+    public void setEmployeeType(EmployeeType employeeType) {
+        this.employeeType = employeeType;
     }
 
     public Employee(){}
@@ -90,6 +84,14 @@ public class Employee {
         this.institutionId = institutionId;
         this.bankAccountNumber = bankAccountNumber;
         this.transitId = transitId;
+    }
+
+    public Collection<Payroll> getPayrolls() {
+        return payrolls;
+    }
+
+    public void setPayrolls(Collection<Payroll> payrolls) {
+        this.payrolls = payrolls;
     }
 
     public long getEmployeeId() {
@@ -201,28 +203,6 @@ public class Employee {
     }
 
     @Override
-    public String toString() {
-        return "Employee{" +
-                "employeeId=" + employeeId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", employeeType=" + employeeType +
-                ", jobTitle='" + jobTitle + '\'' +
-                ", employeeStartDate=" + employeeStartDate +
-                ", employeeEndDate=" + employeeEndDate +
-                ", hourlyWage=" + hourlyWage +
-                ", monthlySalary=" + monthlySalary +
-                ", institutionId=" + institutionId +
-                ", bankAccountNumber=" + bankAccountNumber +
-                ", transitId=" + transitId +
-                ", isEnabled=" + isEnabled +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -233,5 +213,26 @@ public class Employee {
     @Override
     public int hashCode() {
         return Objects.hash(employeeId, firstName, lastName, address, city, emailAddress, employeeStartDate, employeeEndDate, hourlyWage, monthlySalary, institutionId, bankAccountNumber, transitId, isEnabled);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", employeeType=" + employeeType +
+                ", employeeStartDate=" + employeeStartDate +
+                ", employeeEndDate=" + employeeEndDate +
+                ", hourlyWage=" + hourlyWage +
+                ", monthlySalary=" + monthlySalary +
+                ", institutionId=" + institutionId +
+                ", bankAccountNumber=" + bankAccountNumber +
+                ", transitId=" + transitId +
+                ", isEnabled=" + isEnabled +
+                '}';
     }
 }

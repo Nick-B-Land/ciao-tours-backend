@@ -1,17 +1,31 @@
 package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-//@Entity
-//@Table(name = "Employee_type")
+@Entity
+@Table(name = "Employee_types")
 public class EmployeeType {
     @Id
+    @Column(name = "type_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employeeTypeId;
 
     @Column(name = "description")
     private String description;
+
+    @OneToMany(mappedBy = "employeeType", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> employees = new ArrayList<>();
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 
     public EmployeeType(){}
 
