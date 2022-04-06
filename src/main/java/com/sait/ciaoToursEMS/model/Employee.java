@@ -62,6 +62,17 @@ public class Employee {
     @Column(name = "enabled", nullable = false)
     private Boolean isEnabled = true;
 
+    @OneToMany(mappedBy = "employee", orphanRemoval = true)
+    private Collection<Payroll> payrolls = new ArrayList<>();
+
+    public Collection<Payroll> getPayrolls() {
+        return payrolls;
+    }
+
+    public void setPayrolls(Collection<Payroll> payrolls) {
+        this.payrolls = payrolls;
+    }
+
     public Employee(){}
 
     public Employee(Set<EmployeeType> roles, String firstName, String lastName, String address,
@@ -198,6 +209,8 @@ public class Employee {
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
+                ", employeeType=" + employeeType +
+                ", jobTitle='" + jobTitle + '\'' +
                 ", employeeStartDate=" + employeeStartDate +
                 ", employeeEndDate=" + employeeEndDate +
                 ", hourlyWage=" + hourlyWage +
