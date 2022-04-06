@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Employee_types")
 public class EmployeeType {
     @Id
     @Column(name = "type_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employeeTypeId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "description")
-    private String description;
+    private EnumEmployeeTypes description;
 
     @OneToMany(mappedBy = "employeeType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees = new ArrayList<>();
@@ -29,19 +29,15 @@ public class EmployeeType {
 
     public EmployeeType(){}
 
-    public EmployeeType(String description) {
-        this.description = description;
-    }
-
     public long getEmployeeTypeId() {
         return employeeTypeId;
     }
 
-    public String getDescription() {
+    public EnumEmployeeTypes getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(EnumEmployeeTypes description) {
         this.description = description;
     }
 

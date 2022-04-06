@@ -2,6 +2,7 @@ package com.sait.ciaoToursEMS.repositorys;
 
 import com.sait.ciaoToursEMS.model.Employee;
 import com.sait.ciaoToursEMS.model.EmployeeType;
+import com.sait.ciaoToursEMS.model.EnumEmployeeTypes;
 import com.sait.ciaoToursEMS.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,4 +64,21 @@ class UserRepositoryTest {
             assertEquals(expected, user.getEmployee().getFirstName());
         });
     }
+    //Test assigning the full time employeeType to the users employee
+    @Test
+    void setUserEmployeeType() {
+
+        EnumEmployeeTypes expected = EnumEmployeeTypes.FULL_TIME;
+
+        userRepository.findByUsername("admin").ifPresent(user -> {
+            EmployeeType employeeType = new EmployeeType();
+            employeeType.setDescription(EnumEmployeeTypes.FULL_TIME);
+            user.getEmployee().setEmployeeType(employeeType);
+            System.out.println(user.getEmployee().getEmployeeType().getDescription());
+            userRepository.save(user);
+        });
+
+        assertEquals(expected, userRepository.findByUsername("admin").get().getEmployee().getEmployeeType().getDescription());
+    }
+
 }

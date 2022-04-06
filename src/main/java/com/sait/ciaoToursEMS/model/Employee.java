@@ -53,7 +53,7 @@ public class Employee {
     private Boolean isEnabled = true;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_type_id")
+    @JoinColumn(name = "type_id")
     private EmployeeType employeeType;
 
     @OneToMany(mappedBy = "employee", orphanRemoval = true)
