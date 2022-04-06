@@ -13,7 +13,10 @@ public class Payroll {
     @Column(name = "payroll_id")
     private long payrollId;
 
-    private long employeeIDtoFind;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "employee_id")
+    @Column(name = "employee_id")
+    private long employeeId;
 
     @Column(name = "date_of_payroll")
     private Date dateOfPayroll;
@@ -21,7 +24,10 @@ public class Payroll {
     @Column(name = "is_processed")
     private int isProcessed;
 
-    @ManyToOne(optional = false)
+    @Column(name = "is_flagged")
+    private int isFlagged;
+
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
@@ -35,25 +41,20 @@ public class Payroll {
 
     public Payroll(){}
 
-    public Payroll(long employeeIDtoFind, Date dateOfPayroll) {
-        this.employeeIDtoFind = employeeIDtoFind;
-        this.dateOfPayroll = dateOfPayroll;
-        this.isProcessed = 0;
-    }
-
-    public Payroll(long payrollId, long employeeId, Date dateOfPayroll, int isProcessed) {
+    public Payroll(long payrollId, long employeeId, Date dateOfPayroll, int isProcessed, int isFlagged) {
         this.payrollId = payrollId;
-
+        this.employeeId = employeeId;
         this.dateOfPayroll = dateOfPayroll;
         this.isProcessed = isProcessed;
+        this.isFlagged = isFlagged;
     }
 
-    public long getEmployeeIDtoFind() {
-        return employeeIDtoFind;
+    public long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployeeIDtoFind(long employeeIDtoFind) {
-        this.employeeIDtoFind = employeeIDtoFind;
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public long getPayrollId() {
@@ -80,26 +81,43 @@ public class Payroll {
         this.isProcessed = isProcessed;
     }
 
+    public int getIsFlagged() {
+        return isFlagged;
+    }
+
+    public void setIsFlagged(int isFlagged) {
+        this.isFlagged = isFlagged;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Payroll)) return false;
         Payroll payroll = (Payroll) o;
         return payrollId == payroll.payrollId &&
+                employeeId == payroll.employeeId &&
                 isProcessed == payroll.isProcessed &&
+                isFlagged == payroll.isFlagged &&
                 Objects.equals(dateOfPayroll, payroll.dateOfPayroll);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(payrollId, dateOfPayroll);
+        return Objects.hash(payrollId, employeeId, dateOfPayroll, isProcessed, isFlagged);
     }
 
     @Override
     public String toString() {
         return "Payroll{" +
                 "payrollId=" + payrollId +
+                ", employeeId=" + employeeId +
                 ", dateOfPayroll=" + dateOfPayroll +
+                ", isProcessed=" + isProcessed +
+                ", isFlagged=" + isFlagged +
                 '}';
+    }
+
+    public Long getEmployeeIDtoFind() {
+        return employeeId;
     }
 }

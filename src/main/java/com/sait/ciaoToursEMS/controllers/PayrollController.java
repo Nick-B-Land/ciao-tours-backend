@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/")
 public class PayrollController {
@@ -48,4 +48,13 @@ public class PayrollController {
 
     @GetMapping("/payroll/is-processed/{id}")
     public List<Payroll> getPayrollByIsProcessed(@PathVariable int id) { return payrollRepository.findByIsProcessed(id); }
+
+    @PutMapping("/update-payroll/{id}")
+    public ResponseEntity<Payroll> updateEmployee(@PathVariable Long id, @RequestBody Payroll newPayroll){
+        Payroll payroll = payrollRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No payroll found with this id :" + id));
+
+        Payroll updatedPayroll = payrollRepository.save(newPayroll);
+        return ResponseEntity.ok(updatedPayroll);
+    }
 }

@@ -3,6 +3,8 @@ package com.sait.ciaoToursEMS.model;
 import javax.persistence.*;
 import java.util.*;
 
+
+//employee types: 0-Hourly 1-Salary 2-Italian
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -10,6 +12,10 @@ public class Employee {
     @GeneratedValue
     @Column(name = "employee_id")
     private long employeeId;
+
+    @ManyToMany
+    @JoinTable(name = "EID_ETID", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
+    private Set<EmployeeType> roles = new HashSet<>();
 
     @Column(name = "first_name")
     private String firstName;
@@ -25,6 +31,12 @@ public class Employee {
 
     @Column(name = "email_address")
     private String emailAddress;
+
+    @Column(name = "employee_type")
+    private int employeeType;
+
+    @Column(name = "job_title")
+    private String jobTitle;
 
     @Column(name = "employee_start_date")
     private Date employeeStartDate;
