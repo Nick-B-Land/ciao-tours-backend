@@ -7,28 +7,42 @@ import java.util.Objects;
 
 @Entity
 public class EmployeeType {
+
     @Id
     @Column(name = "type_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employeeTypeId;
 
+    /**
+     * The enum for a job category of the employee.
+     * 1. FULL-TIME
+     * 2. PART-TIME
+     * 3. ITALIAN
+     *
+     * @see EnumEmployeeTypes
+     */
     @Enumerated(EnumType.STRING)
     @Column(name = "description")
     private EnumEmployeeTypes description;
 
+    /**
+     * One to many relationship with the Employee class.
+     * Many employees can have the same job category.
+     * Each employee can have only one job category.
+     */
     @OneToMany(mappedBy = "employeeType", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employee> employees = new ArrayList<>();
 
-    public List<Employee> getEmployees() {
-        return employees;
+    /**
+     * Default constructor.
+     */
+    public EmployeeType() {
     }
 
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
-
-    public EmployeeType(){}
-
+    /**
+     * Getter for the employeeTypeId.
+     * @return
+     */
     public long getEmployeeTypeId() {
         return employeeTypeId;
     }
@@ -39,6 +53,14 @@ public class EmployeeType {
 
     public void setDescription(EnumEmployeeTypes description) {
         this.description = description;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     @Override
