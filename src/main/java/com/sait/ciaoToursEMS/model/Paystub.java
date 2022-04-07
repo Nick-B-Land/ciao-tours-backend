@@ -11,9 +11,6 @@ public class Paystub {
     @Column(name = "paystub_id")
     private long paystubId;
 
-    @Column(name = "employee_id")
-    private long employeeId;
-
     @Column(name = "date_of_paystub")
     private Date dateOfPaystub;
 
@@ -80,12 +77,23 @@ public class Paystub {
     @Column(name = "net_pay")
     private double netPay;
 
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "employee_employee_id", nullable = false)
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
     public Paystub() {
     }
 
-    public Paystub(long paystubId, long employeeId, Date dateOfPaystub, String firstName, String lastName, String address, String city, String emailAddress, float monthlySalary, float hourlyWage, double timeOffHours, double dailyAssistanceNumber, double dailyAssistanceCharges, double tourBookingHours, double tourBookingCharges, float expenseAmount, double workDayHours, double workDayCharges, double statHours, double incomeTax, double cppDeductions, double eiDeductions, double grossPay, double netPay) {
+    public Paystub(long paystubId,Date dateOfPaystub, String firstName, String lastName, String address, String city, String emailAddress, float monthlySalary, float hourlyWage, double timeOffHours, double dailyAssistanceNumber, double dailyAssistanceCharges, double tourBookingHours, double tourBookingCharges, float expenseAmount, double workDayHours, double workDayCharges, double statHours, double incomeTax, double cppDeductions, double eiDeductions, double grossPay, double netPay) {
         this.paystubId = paystubId;
-        this.employeeId = employeeId;
         this.dateOfPaystub = dateOfPaystub;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -116,14 +124,6 @@ public class Paystub {
 
     public void setPaystubId(long paystubId) {
         this.paystubId = paystubId;
-    }
-
-    public long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
     }
 
     public Date getDateOfPaystub() {
@@ -302,70 +302,5 @@ public class Paystub {
         this.netPay = netPay;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Paystub)) return false;
-        Paystub paystub = (Paystub) o;
-        return paystubId == paystub.paystubId &&
-                employeeId == paystub.employeeId &&
-                Float.compare(paystub.monthlySalary, monthlySalary) == 0 &&
-                Float.compare(paystub.hourlyWage, hourlyWage) == 0 &&
-                Double.compare(paystub.timeOffHours, timeOffHours) == 0 &&
-                Double.compare(paystub.dailyAssistanceNumber, dailyAssistanceNumber) == 0 &&
-                Double.compare(paystub.dailyAssistanceCharges, dailyAssistanceCharges) == 0 &&
-                Double.compare(paystub.tourBookingHours, tourBookingHours) == 0 &&
-                Double.compare(paystub.tourBookingCharges, tourBookingCharges) == 0 &&
-                Float.compare(paystub.expenseAmount, expenseAmount) == 0 &&
-                Double.compare(paystub.workDayHours, workDayHours) == 0 &&
-                Double.compare(paystub.workDayCharges, workDayCharges) == 0 &&
-                Double.compare(paystub.statHours, statHours) == 0 &&
-                Double.compare(paystub.incomeTax, incomeTax) == 0 &&
-                Double.compare(paystub.cppDeductions, cppDeductions) == 0 &&
-                Double.compare(paystub.eiDeductions, eiDeductions) == 0 &&
-                Double.compare(paystub.grossPay, grossPay) == 0 &&
-                Double.compare(paystub.netPay, netPay) == 0 &&
-                Objects.equals(dateOfPaystub, paystub.dateOfPaystub) &&
-                Objects.equals(firstName, paystub.firstName) &&
-                Objects.equals(lastName, paystub.lastName) &&
-                Objects.equals(address, paystub.address) &&
-                Objects.equals(city, paystub.city) &&
-                Objects.equals(emailAddress, paystub.emailAddress);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(paystubId, employeeId, dateOfPaystub, firstName, lastName, address, city, emailAddress, monthlySalary, hourlyWage, timeOffHours, dailyAssistanceNumber, dailyAssistanceCharges, tourBookingHours, tourBookingCharges, expenseAmount, workDayHours, workDayCharges, statHours, incomeTax, cppDeductions, eiDeductions, grossPay, netPay);
-    }
-
-    @Override
-    public String toString() {
-        return "Paystub{" +
-                "paystubId=" + paystubId +
-                ", employeeId=" + employeeId +
-                ", dateOfPaystub=" + dateOfPaystub +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", monthlySalary=" + monthlySalary +
-                ", hourlyWage=" + hourlyWage +
-                ", timeOffHours=" + timeOffHours +
-                ", dailyAssistanceNumber=" + dailyAssistanceNumber +
-                ", dailyAssistanceCharges=" + dailyAssistanceCharges +
-                ", tourBookingHours=" + tourBookingHours +
-                ", tourBookingCharges=" + tourBookingCharges +
-                ", expenseAmount=" + expenseAmount +
-                ", workDayHours=" + workDayHours +
-                ", workDayCharges=" + workDayCharges +
-                ", statHours=" + statHours +
-                ", incomeTax=" + incomeTax +
-                ", cppDeductions=" + cppDeductions +
-                ", eiDeductions=" + eiDeductions +
-                ", grossPay=" + grossPay +
-                ", netPay=" + netPay +
-                '}';
-    }
 }
 

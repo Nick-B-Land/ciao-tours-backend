@@ -59,6 +59,18 @@ public class Employee {
     @OneToMany(mappedBy = "employee", orphanRemoval = true)
     private Set<Payroll> payrolls = new LinkedHashSet<>();
 
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("paystubs.date_of_paystub DESC")
+    private List<Paystub> paystubs = new ArrayList<>();
+
+    public List<Paystub> getPaystubs() {
+        return paystubs;
+    }
+
+    public void setPaystubs(List<Paystub> paystubs) {
+        this.paystubs = paystubs;
+    }
+
     public void setPayrolls(Set<Payroll> payrolls) {
         this.payrolls = payrolls;
     }
