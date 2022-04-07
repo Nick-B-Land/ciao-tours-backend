@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface PayrollDataRepository extends JpaRepository<PayrollData, Long> {
 
-    List<PayrollData> findByPayrollId(long id);
+    List<PayrollData> findByPayroll(Payroll p);
 
 }

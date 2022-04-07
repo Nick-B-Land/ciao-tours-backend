@@ -2,8 +2,10 @@ package com.sait.ciaoToursEMS.controllers;
 
 import com.sait.ciaoToursEMS.exceptions.ResourceNotFoundException;
 import com.sait.ciaoToursEMS.model.Employee;
+import com.sait.ciaoToursEMS.model.EmployeeType;
 import com.sait.ciaoToursEMS.model.Payroll;
 import com.sait.ciaoToursEMS.model.PayrollData;
+import com.sait.ciaoToursEMS.repositorys.EmployeeTypeRepository;
 import com.sait.ciaoToursEMS.repositorys.PayrollDataRepository;
 import com.sait.ciaoToursEMS.repositorys.PayrollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class PayrollDataController {
     @Autowired
     private PayrollRepository payrollRepository;
 
+    @Autowired
+    private EmployeeTypeRepository employeeTypeRepository;
+
     //get all payroll data
     @GetMapping("/payroll-data")
     public List<PayrollData> getAllPayroll() { return payrollDataRepository.findAll(); }
@@ -41,7 +46,8 @@ public class PayrollDataController {
     //this is untested and will probably require tweaking
     @GetMapping("/payroll-data-by-payroll/{id}")
     public ResponseEntity<List<PayrollData>> getAllPayrollDataByPayrollID(@PathVariable Long id) {
-        List <PayrollData> payrollData = payrollDataRepository.findByPayrollId(id);
+        Payroll p = payrollRepository.getById(id);
+        List <PayrollData> payrollData = payrollDataRepository.findByPayroll(p);
         return ResponseEntity.ok(payrollData);
     }
 
