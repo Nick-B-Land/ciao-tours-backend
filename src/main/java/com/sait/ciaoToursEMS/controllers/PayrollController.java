@@ -1,8 +1,10 @@
 package com.sait.ciaoToursEMS.controllers;
 
+import com.sait.ciaoToursEMS.exceptions.EntityNotFoundException;
 import com.sait.ciaoToursEMS.exceptions.ResourceNotFoundException;
 import com.sait.ciaoToursEMS.model.Employee;
 import com.sait.ciaoToursEMS.model.Payroll;
+import com.sait.ciaoToursEMS.repositorys.EmployeeRepository;
 import com.sait.ciaoToursEMS.repositorys.PayrollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/")
 public class PayrollController {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Autowired
     private PayrollRepository payrollRepository;
@@ -31,13 +36,19 @@ public class PayrollController {
     }
 
     @GetMapping("/payroll/eid/{id}")
-    public List<Payroll> getPayrollByEmployeeID(@PathVariable Long id) { return payrollRepository.findByEmployeeId(id); }
+    public List<Payroll> getPayrollByEmployeeID(@PathVariable Long id) throws EntityNotFoundException {
+        //Find one employee by id and return
+        Employee emp = employeeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
+        return payrollRepository.findByEmployee(emp);
+    }
 
     @PostMapping("/new-payroll")
     public ResponseEntity<Payroll> createPayroll (@RequestBody Payroll payroll) {
-        Payroll p = payrollRepository.save(payroll);
-
-        return ResponseEntity.ok(p);
+        //Payroll p = payrollRepository.save(payroll);
+        Employee e = employeeRepository.getById(payroll.getEmployeeID());
+        payroll.setEmployee(e);
+        payrollRepository.save(payroll);
+        return ResponseEntity.ok(payroll);
     }
 
     @GetMapping("/payroll/is-processed/{id}")

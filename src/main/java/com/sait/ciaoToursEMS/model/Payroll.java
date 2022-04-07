@@ -13,11 +13,6 @@ public class Payroll {
     @Column(name = "payroll_id")
     private long payrollId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "employee_id")
-    @Column(name = "employee_id")
-    private long employeeId;
-
     @Column(name = "date_of_payroll")
     private Date dateOfPayroll;
 
@@ -27,22 +22,31 @@ public class Payroll {
     @Column(name = "is_flagged")
     private int isFlagged;
 
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
+
     public Payroll(){}
 
     public Payroll(long payrollId, long employeeId, Date dateOfPayroll, int isProcessed, int isFlagged) {
         this.payrollId = payrollId;
-        this.employeeId = employeeId;
         this.dateOfPayroll = dateOfPayroll;
         this.isProcessed = isProcessed;
         this.isFlagged = isFlagged;
     }
 
-    public long getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
+
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public long getEmployeeID() {
+        return this.employee.getEmployeeId();
     }
 
     public long getPayrollId() {
@@ -83,7 +87,6 @@ public class Payroll {
         if (!(o instanceof Payroll)) return false;
         Payroll payroll = (Payroll) o;
         return payrollId == payroll.payrollId &&
-                employeeId == payroll.employeeId &&
                 isProcessed == payroll.isProcessed &&
                 isFlagged == payroll.isFlagged &&
                 Objects.equals(dateOfPayroll, payroll.dateOfPayroll);
@@ -91,17 +94,17 @@ public class Payroll {
 
     @Override
     public int hashCode() {
-        return Objects.hash(payrollId, employeeId, dateOfPayroll, isProcessed, isFlagged);
+        return Objects.hash(payrollId, dateOfPayroll, isProcessed, isFlagged);
     }
 
     @Override
     public String toString() {
         return "Payroll{" +
                 "payrollId=" + payrollId +
-                ", employeeId=" + employeeId +
                 ", dateOfPayroll=" + dateOfPayroll +
                 ", isProcessed=" + isProcessed +
                 ", isFlagged=" + isFlagged +
                 '}';
     }
+
 }

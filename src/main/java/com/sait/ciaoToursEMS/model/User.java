@@ -20,36 +20,43 @@ public class User {
     @NotBlank
     private String password;
 
-    @NotNull
-    private Long employeeID;
+    @Column(name = "enabled", nullable = false)
+    private Boolean isEnabled = true;
 
-    @ManyToMany
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+            )
     private Set<Role> roles = new HashSet<>();
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
     public User() {}
 
-    public User(@NotBlank String username, @NotBlank String password, @NotBlank Long employee_id) {
+    public User(@NotBlank String username, @NotBlank String password) {
         this.username = username;
         this.password = password;
-        this.employeeID = employee_id;
     }
 
-    public User(@NotBlank String username, @NotBlank String password, @NotBlank Long employee_id, Set<Role> roles) {
+    public User(@NotBlank String username, @NotBlank String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
-        this.employeeID = employee_id;
         this.roles = roles;
     }
 
     public Long getId() {
         return user_id;
-    }
-
-    public void setId(Long id) {
-        this.user_id = id;
     }
 
     public String getUsername() {
@@ -68,19 +75,19 @@ public class User {
         this.password = password;
     }
 
-    public Long getEmployee_id() {
-        return employeeID;
-    }
-
-    public void setEmployee_id(Long employee_id) {
-        this.employeeID = employee_id;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
 }
