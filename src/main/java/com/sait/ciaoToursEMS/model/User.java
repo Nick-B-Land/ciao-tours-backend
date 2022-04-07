@@ -49,6 +49,12 @@ public class User {
         this.password = password;
     }
 
+    public User(@NotBlank String username, @NotBlank String password, Employee e) {
+        this.username = username;
+        this.password = password;
+        this.employee = e;
+    }
+
     public User(@NotBlank String username, @NotBlank String password, Set<Role> roles) {
         this.username = username;
         this.password = password;

@@ -1,5 +1,7 @@
 package com.sait.ciaoToursEMS.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -15,6 +17,9 @@ public class PayrollData {
     @GeneratedValue
     @Column(name = "payroll_data_id")
     private long payrollDataId;
+
+    @Transient
+    private long payrollId;
 
     @Column(name = "payroll_event")
     private int payrollEvent;
@@ -73,16 +78,23 @@ public class PayrollData {
     @Column(name = "expense_date")
     private Date expenseDate;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "payroll_id", nullable = false)
     private Payroll payroll;
 
     public PayrollData(){}
 
-    public PayrollData(long payrollId, int payrollEvent, Date dateOfPayrollData, int noOfWorkingHours,
+    public PayrollData(long payrollId){
+        this.payrollId = payrollId;
+    }
+
+    public PayrollData(long payrollId, Payroll p,  int payrollEvent, Date dateOfPayrollData, int noOfWorkingHours,
                        double timeOff, String officeUsage, String otherUsage, float usageCost, String dailyAssistanceClient, LocalDateTime dailyAssistanceStartDate,
                        LocalDateTime dailyAssistanceEndDate, float dailyAssistanceFee, String tourBookingAdminDescription, int tourBookingNumOfHours, String tourBookingClient,
                        float tourBookingAdminFee, Date dayOfExpense, String expenseDescription, float expenseAmount, Date expenseDate){
+        this.payrollId = payrollId;
+        this.payroll = p;
         this.payrollEvent = payrollEvent;
         this.dateOfPayrollData = dateOfPayrollData;
         this.noOfWorkingHours = noOfWorkingHours;
@@ -121,7 +133,7 @@ public class PayrollData {
     }
 
     public long getPayrollId() {
-        return payroll.getPayrollId();
+        return payrollId;
     }
 
     public int getPayrollEvent() {

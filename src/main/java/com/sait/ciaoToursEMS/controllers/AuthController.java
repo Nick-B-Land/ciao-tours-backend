@@ -81,6 +81,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        System.out.println(signUpRequest.getRoles());
 
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
@@ -88,15 +89,19 @@ public class AuthController {
 
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
-                passwordEncoder.encode(signUpRequest.getPassword()));
-                //signUpRequest.getEmployeeID()); Remove this -Duncan
+                passwordEncoder.encode(signUpRequest.getPassword()), signUpRequest.getEmployee());
+
+
+        System.out.println(user.getUsername());
         /*
+
+
         TODO employee_id isn't passed to a user constructor anymore, needs fix -Duncan 03/22/22
         Either we need to implement a way to retrieve and link an existing employee,
         or we need to initialize a new employee object upon user creation.
         */
 
-        Set<String> strRoles = signUpRequest.getRole();
+        Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {

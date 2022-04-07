@@ -1,5 +1,8 @@
 package com.sait.ciaoToursEMS.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -24,10 +27,12 @@ public class Payroll {
     @Column(name = "is_flagged")
     private int isFlagged;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "payroll", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<PayrollData> payrollDatas = new LinkedHashSet<>();
 

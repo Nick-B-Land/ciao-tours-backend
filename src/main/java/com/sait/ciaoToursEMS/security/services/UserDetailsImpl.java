@@ -1,6 +1,7 @@
 package com.sait.ciaoToursEMS.security.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sait.ciaoToursEMS.model.Employee;
 import com.sait.ciaoToursEMS.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +19,7 @@ public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String username;
     private Long employeeID;
+    private Employee employee;
 
     @JsonIgnore
     private String password;
@@ -25,10 +27,19 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserDetailsImpl(Long id, String username, String password,
+                            Collection<? extends GrantedAuthority> authorities) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+    }
+
+    public UserDetailsImpl(Long id, String username, String password, Employee e,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.employee = e;
         this.authorities = authorities;
     }
 
@@ -41,6 +52,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getId(),
                 user.getUsername(),
                 user.getPassword(),
+                user.getEmployee(),
                 authorities);
     }
 
@@ -49,7 +61,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public Long getEmployeeID(){
-        return employeeID;
+        return employee.getEmployeeId();
     }
 
     @Override

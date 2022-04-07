@@ -37,10 +37,10 @@ public class PaystubController {
         return ResponseEntity.ok(paystub);
     }
 
-    @GetMapping("/paystubs/employee/{id}")
-    public List<Paystub> getPayrollByEmployeeID(@PathVariable Long id) {
-        return paystubRepository.findByEmployeeId(id);
-    }
+//    @GetMapping("/paystubs/employee/{id}")
+//    public List<Paystub> getPayrollByEmployeeID(@PathVariable Long id) {
+//        return paystubRepository.findByEmployeeId(id);
+//    }
 
     @GetMapping("/paystubs/date/{date}")
     public List<Paystub> getPayrollByIsProcessed(@PathVariable Date date) {

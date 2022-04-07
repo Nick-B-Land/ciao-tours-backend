@@ -13,5 +13,5 @@ import java.util.List;
 public interface PaystubRepository extends JpaRepository<Paystub, Long> {
     List<Paystub> findByDateOfPaystub(Date date);
 
-    List<Paystub> findByEmployeeId(Long id);
+    //List<Paystub> findByEmployeeId(Long id);
 }

@@ -1,5 +1,8 @@
 package com.sait.ciaoToursEMS.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -62,11 +65,12 @@ public class Employee {
     @JoinColumn(name = "type_id")
     private EmployeeType employeeType;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "employee", orphanRemoval = true)
     private Set<Payroll> payrolls = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("paystubs.date_of_paystub DESC")
+    //@OrderBy("paystubs.date_of_paystub DESC")
     private List<Paystub> paystubs = new ArrayList<>();
 
     public EmployeeType getEmployeeType() {
@@ -78,6 +82,10 @@ public class Employee {
     }
 
     public Employee(){}
+
+    public Employee (long employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public Employee(Set<EmployeeType> roles, String firstName, String lastName, String address,
                     String city, String emailAddress, Date employeeStartDate, Date employeeEndDate,

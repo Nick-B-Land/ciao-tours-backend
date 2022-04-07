@@ -11,6 +11,9 @@ public class Paystub {
     @Column(name = "paystub_id")
     private long paystubId;
 
+    @Transient
+    private long employeeId;
+
     @Column(name = "date_of_paystub")
     private Date dateOfPaystub;
 
@@ -92,8 +95,13 @@ public class Paystub {
     public Paystub() {
     }
 
-    public Paystub(long paystubId,Date dateOfPaystub, String firstName, String lastName, String address, String city, String emailAddress, float monthlySalary, float hourlyWage, double timeOffHours, double dailyAssistanceNumber, double dailyAssistanceCharges, double tourBookingHours, double tourBookingCharges, float expenseAmount, double workDayHours, double workDayCharges, double statHours, double incomeTax, double cppDeductions, double eiDeductions, double grossPay, double netPay) {
+    public Paystub(long paystubId, Employee e, Date dateOfPaystub, String firstName, String lastName,
+                   String address, String city, String emailAddress, float monthlySalary, float hourlyWage,
+                   double timeOffHours, double dailyAssistanceNumber, double dailyAssistanceCharges, double tourBookingHours,
+                   double tourBookingCharges, float expenseAmount, double workDayHours, double workDayCharges, double statHours,
+                   double incomeTax, double cppDeductions, double eiDeductions, double grossPay, double netPay) {
         this.paystubId = paystubId;
+        this.employee = e;
         this.dateOfPaystub = dateOfPaystub;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -116,7 +124,10 @@ public class Paystub {
         this.eiDeductions = eiDeductions;
         this.grossPay = grossPay;
         this.netPay = netPay;
+        this.employeeId = this.employee.getEmployeeId();
     }
+
+    public long getEmployeeId() {return this.employeeId;}
 
     public long getPaystubId() {
         return paystubId;
