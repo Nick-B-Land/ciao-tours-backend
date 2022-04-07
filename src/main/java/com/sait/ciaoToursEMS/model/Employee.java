@@ -57,7 +57,15 @@ public class Employee {
     private EmployeeType employeeType;
 
     @OneToMany(mappedBy = "employee", orphanRemoval = true)
-    private Collection<Payroll> payrolls = new ArrayList<>();
+    private Set<Payroll> payrolls = new LinkedHashSet<>();
+
+    public void setPayrolls(Set<Payroll> payrolls) {
+        this.payrolls = payrolls;
+    }
+
+    public Set<Payroll> getPayrolls() {
+        return payrolls;
+    }
 
     public EmployeeType getEmployeeType() {
         return employeeType;
@@ -84,14 +92,6 @@ public class Employee {
         this.institutionId = institutionId;
         this.bankAccountNumber = bankAccountNumber;
         this.transitId = transitId;
-    }
-
-    public Collection<Payroll> getPayrolls() {
-        return payrolls;
-    }
-
-    public void setPayrolls(Collection<Payroll> payrolls) {
-        this.payrolls = payrolls;
     }
 
     public long getEmployeeId() {
@@ -202,17 +202,21 @@ public class Employee {
         this.isEnabled = isEnabled;
     }
 
+    public void addPayroll(Payroll payroll){
+        payrolls.add(payroll);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return employeeId == employee.employeeId && Float.compare(employee.hourlyWage, hourlyWage) == 0 && Float.compare(employee.monthlySalary, monthlySalary) == 0 && institutionId == employee.institutionId && bankAccountNumber == employee.bankAccountNumber && transitId == employee.transitId &&  Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(address, employee.address) && Objects.equals(city, employee.city) && Objects.equals(emailAddress, employee.emailAddress) && Objects.equals(employeeStartDate, employee.employeeStartDate) && Objects.equals(employeeEndDate, employee.employeeEndDate) && Objects.equals(isEnabled, employee.isEnabled);
+        return getEmployeeId() == employee.getEmployeeId() && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0 && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0 && getInstitutionId() == employee.getInstitutionId() && getBankAccountNumber() == employee.getBankAccountNumber() && getTransitId() == employee.getTransitId() && Objects.equals(getFirstName(), employee.getFirstName()) && Objects.equals(getLastName(), employee.getLastName()) && Objects.equals(getAddress(), employee.getAddress()) && Objects.equals(getCity(), employee.getCity()) && Objects.equals(getEmailAddress(), employee.getEmailAddress()) && Objects.equals(getEmployeeStartDate(), employee.getEmployeeStartDate()) && Objects.equals(getEmployeeEndDate(), employee.getEmployeeEndDate()) && Objects.equals(getIsEnabled(), employee.getIsEnabled()) && Objects.equals(getEmployeeType(), employee.getEmployeeType()) && Objects.equals(getPayrolls(), employee.getPayrolls());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, firstName, lastName, address, city, emailAddress, employeeStartDate, employeeEndDate, hourlyWage, monthlySalary, institutionId, bankAccountNumber, transitId, isEnabled);
+        return Objects.hash(getEmployeeId(), getFirstName(), getLastName(), getAddress(), getCity(), getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(), getInstitutionId(), getBankAccountNumber(), getTransitId(), getIsEnabled(), getEmployeeType(), getPayrolls());
     }
 
     @Override
@@ -224,7 +228,6 @@ public class Employee {
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", employeeType=" + employeeType +
                 ", employeeStartDate=" + employeeStartDate +
                 ", employeeEndDate=" + employeeEndDate +
                 ", hourlyWage=" + hourlyWage +
@@ -233,6 +236,8 @@ public class Employee {
                 ", bankAccountNumber=" + bankAccountNumber +
                 ", transitId=" + transitId +
                 ", isEnabled=" + isEnabled +
+                ", employeeType=" + employeeType +
+                ", payrolls=" + payrolls +
                 '}';
     }
 }
