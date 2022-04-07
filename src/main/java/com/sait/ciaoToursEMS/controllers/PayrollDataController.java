@@ -36,7 +36,7 @@ public class PayrollDataController {
     //this is untested and will probably require tweaking
     @GetMapping("/payroll-data-by-payroll/{id}")
     public ResponseEntity<List<PayrollData>> getAllPayrollDataByPayrollID(@PathVariable Long id) {
-        List <PayrollData> payrollData = payrollDataRepository.findByPayrollId(id);
+        List <PayrollData> payrollData = null;//= payrollDataRepository.findByPayrollId(id); TODO temp disabled
         return ResponseEntity.ok(payrollData);
     }
 

@@ -2,7 +2,9 @@ package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "payroll")
@@ -26,20 +28,29 @@ public class Payroll {
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
 
+    @OneToMany(mappedBy = "payroll", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PayrollData> payrollDatas = new LinkedHashSet<>();
+
+    public Set<PayrollData> getPayrollDatas() {
+        return payrollDatas;
+    }
+
+    public void setPayrollDatas(Set<PayrollData> payrollDatas) {
+        this.payrollDatas = payrollDatas;
+    }
+
     public Payroll(){}
 
-    public Payroll(long payrollId, long employeeId, Date dateOfPayroll, int isProcessed, int isFlagged) {
-        this.payrollId = payrollId;
+    public Payroll(Employee employee, Date dateOfPayroll) {
         this.dateOfPayroll = dateOfPayroll;
-        this.isProcessed = isProcessed;
-        this.isFlagged = isFlagged;
+        this.employee = employee;
+        this.isProcessed = 0;
+        this.isFlagged = 0;
     }
 
     public Employee getEmployee() {
         return employee;
     }
-
-
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
@@ -80,6 +91,11 @@ public class Payroll {
     public void setIsFlagged(int isFlagged) {
         this.isFlagged = isFlagged;
     }
+
+    public void addPayrollData(PayrollData payrollData) {
+        payrollDatas.add(payrollData);
+    }
+
 
     @Override
     public boolean equals(Object o) {

@@ -75,10 +75,27 @@ class UserRepositoryTest {
             employeeType.setDescription(EnumEmployeeTypes.FULL_TIME);
             user.getEmployee().setEmployeeType(employeeType);
             System.out.println(user.getEmployee().getEmployeeType().getDescription());
+            System.out.println(user.getEmployee().getEmployeeId());
             userRepository.save(user);
         });
 
         assertEquals(expected, userRepository.findByUsername("admin").get().getEmployee().getEmployeeType().getDescription());
+    }
+
+    //Test assigning the full time employeeType to the users employee
+    @Test
+    void setUserEmployeeTypeThroughEmployeeRepo() {
+        long empid = userRepository.findByUsername("admin").get().getEmployee().getEmployeeId();
+        EnumEmployeeTypes expected = EnumEmployeeTypes.FULL_TIME;
+
+        employeeRepository.findById(empid).ifPresent(employee -> {
+            EmployeeType employeeType = new EmployeeType();
+            employeeType.setDescription(EnumEmployeeTypes.FULL_TIME);
+            employee.setEmployeeType(employeeType);
+            employeeRepository.save(employee);
+        });
+
+        assertEquals(expected, employeeRepository.findById(empid).get().getEmployeeType().getDescription());
     }
 
 }
