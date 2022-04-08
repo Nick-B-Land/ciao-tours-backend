@@ -1,6 +1,7 @@
 package com.sait.ciaoToursEMS.controllers;
 
 
+import com.sait.ciaoToursEMS.model.EmployeeType;
 import com.sait.ciaoToursEMS.model.EnumRoles;
 import com.sait.ciaoToursEMS.model.Role;
 import com.sait.ciaoToursEMS.model.User;
@@ -91,15 +92,7 @@ public class AuthController {
         User user = new User(signUpRequest.getUsername(),
                 passwordEncoder.encode(signUpRequest.getPassword()), signUpRequest.getEmployee());
 
-
         System.out.println(user.getUsername());
-        /*
-
-
-        TODO employee_id isn't passed to a user constructor anymore, needs fix -Duncan 03/22/22
-        Either we need to implement a way to retrieve and link an existing employee,
-        or we need to initialize a new employee object upon user creation.
-        */
 
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();

@@ -1,16 +1,16 @@
 package com.sait.ciaoToursEMS.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * EmployeeType
  *
  * Represents the type of employee.
- * 1. FULL-TIME
- * 2. PART-TIME
+ * 1. HOURLY
+ * 2. SALARY
  * 3. ITALIAN
  */
 
@@ -24,23 +24,15 @@ public class EmployeeType {
 
     /**
      * The enum for a job category of the employee.
-     * 1. FULL-TIME
-     * 2. PART-TIME
+     * 1. HOURLY
+     * 2. SALARY
      * 3. ITALIAN
-     *
+     * 99. INACTIVE
      * @see EnumEmployeeTypes
      */
     @Enumerated(EnumType.STRING)
     @Column(name = "description")
     private EnumEmployeeTypes description;
-
-    /**
-     * One to many relationship with the Employee class.
-     * Many employees can have the same job category.
-     * Each employee can have only one job category.
-     */
-    @OneToMany(mappedBy = "employeeType", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Employee> employees = new ArrayList<>();
 
     /**
      * Default constructor.
@@ -70,22 +62,6 @@ public class EmployeeType {
      */
     public void setDescription(EnumEmployeeTypes description) {
         this.description = description;
-    }
-
-    /**
-     * Getter for the employees.
-     * @return List<Employee> the employees.
-     */
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    /**
-     * Setter for the employees.
-     * @param employees the employees.
-     */
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
     }
 
     @Override

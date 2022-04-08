@@ -22,6 +22,7 @@ public class Employee {
     @Column(name = "employee_id")
     private long employeeId;
 
+    //<editor-fold desc="Fields">
     @Column(name = "first_name")
     private String firstName;
                                              
@@ -30,6 +31,18 @@ public class Employee {
 
     @Column(name = "address")
     private String address;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "province")
+    private String province;
+
+    @Column(name = "postal_code")
+    private String postalCode;
+
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
 
     @Column(name = "city")
     private String city;
@@ -61,26 +74,39 @@ public class Employee {
     @Column(name = "enabled", nullable = false)
     private Boolean isEnabled = true;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "type_id")
-    private EmployeeType employeeType;
+    @Column(name = "title")
+    private String JobTitle;
+    //</editor-fold>
 
+    //<editor-fold desc="Relational Fields">
+    /**
+     * One-to-many relationship with the {@link com.sait.ciaoToursEMS.model.Payroll} Entity.
+     * One employee can have many payroll entities.
+     * Many paystubs can be generated for one employee.
+     */
     @JsonManagedReference
     @OneToMany(mappedBy = "employee", orphanRemoval = true)
     private Set<Payroll> payrolls = new LinkedHashSet<>();
 
+    /**
+     * One-to-many relationship with the {@link com.sait.ciaoToursEMS.model.Paystub} Entity.
+     * One employee can have many paystubs.
+     * Many paystubs can be generated for one employee.
+     */
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@OrderBy("paystubs.date_of_paystub DESC")
     private List<Paystub> paystubs = new ArrayList<>();
 
-    public EmployeeType getEmployeeType() {
-        return employeeType;
-    }
+    /**
+     * Many-to-one relationship with the {@link com.sait.ciaoToursEMS.model.EmployeeType} Entity.
+     * Many employees can have the same job category.
+     * Each employee can have only one job category.
+     */
+    @ManyToOne
+    @JoinColumn(name = "employee_type_id")
+    private EmployeeType employeeType;
+    //</editor-fold>
 
-    public void setEmployeeType(EmployeeType employeeType) {
-        this.employeeType = employeeType;
-    }
-
+    //<editor-fold desc="Constructors">
     public Employee(){}
 
     public Employee (long employeeId) {
@@ -103,11 +129,9 @@ public class Employee {
         this.bankAccountNumber = bankAccountNumber;
         this.transitId = transitId;
     }
+    //</editor-fold>
 
-    /*
-    Getters and Setters
-     */
-
+    //<editor-fold desc="Getters and Setters">
     /**
      * Gets the employee ID
      * @return a long representing the employee ID
@@ -186,6 +210,86 @@ public class Employee {
      */
     public String getEmailAddress() {
         return emailAddress;
+    }
+
+    /**
+     * Gets the employee's country
+     * @return a String representing the employee's country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * Sets the employee's country
+     * @param country a String representing the employee's country
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    /**
+     * Gets the employee's province
+     * @return a String representing the employee's province
+     */
+    public String getProvince() {
+        return province;
+    }
+
+    /**
+     * Sets the employee's province
+     * @param province a String representing the employee's province
+     */
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    /**
+     * Gets the employee's postal code
+     * @return a String representing the employee's postal code
+     */
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    /**
+     * Sets the employee's postal code
+     * @param postalCode a String representing the employee's postal code
+     */
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    /**
+     * Gets the employee's date of birth
+     * @return a Date representing the employee's date of birth
+     */
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    /**
+     * Sets the employee's date of birth
+     * @param dateOfBirth a Date representing the employee's date of birth
+     */
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    /**
+     * Gets the employee's job role
+     * @return a String representing the employee's job title
+     */
+    public String getJobTitle() {
+        return JobTitle;
+    }
+
+    /**
+     * Sets the employee's job role
+     * @param jobTitle a String representing the employee's job title
+     */
+    public void setJobTitle(String jobTitle) {
+        JobTitle = jobTitle;
     }
 
     /**
@@ -356,10 +460,24 @@ public class Employee {
         return payrolls;
     }
 
-    /*
-    Other Methods
+    /**
+     * Gets an EmployeeType object representing the employee's type
+     * @return EmployeeType object representing the employee's type
      */
+    public EmployeeType getEmployeeType() {
+        return employeeType;
+    }
 
+    /**
+     * Sets an EmployeeType object representing the employee's type
+     * @param employeeType EmployeeType object representing the employee's type
+     */
+    public void setEmployeeType(EmployeeType employeeType) {
+        this.employeeType = employeeType;
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Methods">
     /**
      * Add a paystub to the employee's paystubs list
      * @param paystub a paystub object to be added to the employee's paystubs list
@@ -379,14 +497,56 @@ public class Employee {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return getEmployeeId() == employee.getEmployeeId() && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0 && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0 && getInstitutionId() == employee.getInstitutionId() && getBankAccountNumber() == employee.getBankAccountNumber() && getTransitId() == employee.getTransitId() && Objects.equals(getFirstName(), employee.getFirstName()) && Objects.equals(getLastName(), employee.getLastName()) && Objects.equals(getAddress(), employee.getAddress()) && Objects.equals(getCity(), employee.getCity()) && Objects.equals(getEmailAddress(), employee.getEmailAddress()) && Objects.equals(getEmployeeStartDate(), employee.getEmployeeStartDate()) && Objects.equals(getEmployeeEndDate(), employee.getEmployeeEndDate()) && Objects.equals(getIsEnabled(), employee.getIsEnabled()) && Objects.equals(getEmployeeType(), employee.getEmployeeType()) && Objects.equals(getPayrolls(), employee.getPayrolls());
+        return getEmployeeId() == employee.getEmployeeId() && Float.compare(employee.getHourlyWage(),
+                getHourlyWage()) == 0 && Float.compare(employee.getMonthlySalary(),
+                getMonthlySalary()) == 0 &&
+                getInstitutionId() == employee.getInstitutionId() &&
+                getBankAccountNumber() == employee.getBankAccountNumber() &&
+                getTransitId() == employee.getTransitId() &&
+                getFirstName().equals(employee.getFirstName()) &&
+                getLastName().equals(employee.getLastName()) &&
+                getAddress().equals(employee.getAddress()) &&
+                country.equals(employee.country) &&
+                province.equals(employee.province) &&
+                postalCode.equals(employee.postalCode) &&
+                dateOfBirth.equals(employee.dateOfBirth) &&
+                getCity().equals(employee.getCity()) &&
+                getEmailAddress().equals(employee.getEmailAddress()) &&
+                getEmployeeStartDate().equals(employee.getEmployeeStartDate()) &&
+                getEmployeeEndDate().equals(employee.getEmployeeEndDate()) &&
+                getIsEnabled().equals(employee.getIsEnabled()) &&
+                JobTitle.equals(employee.JobTitle) &&
+                getPayrolls().equals(employee.getPayrolls()) &&
+                getPaystubs().equals(employee.getPaystubs()) &&
+                getEmployeeType().equals(employee.getEmployeeType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmployeeId(), getFirstName(), getLastName(), getAddress(), getCity(), getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(), getInstitutionId(), getBankAccountNumber(), getTransitId(), getIsEnabled(), getEmployeeType(), getPayrolls());
+        return Objects.hash(getEmployeeId(),
+                getFirstName(),
+                getLastName(),
+                getAddress(),
+                country,
+                province,
+                postalCode,
+                dateOfBirth,
+                getCity(),
+                getEmailAddress(),
+                getEmployeeStartDate(),
+                getEmployeeEndDate(),
+                getHourlyWage(),
+                getMonthlySalary(),
+                getInstitutionId(),
+                getBankAccountNumber(),
+                getTransitId(),
+                getIsEnabled(),
+                JobTitle,
+                getPayrolls(),
+                getPaystubs(),
+                getEmployeeType());
     }
 
     @Override
@@ -396,6 +556,10 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
+                ", country='" + country + '\'' +
+                ", province='" + province + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
                 ", city='" + city + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
                 ", employeeStartDate=" + employeeStartDate +
@@ -406,8 +570,12 @@ public class Employee {
                 ", bankAccountNumber=" + bankAccountNumber +
                 ", transitId=" + transitId +
                 ", isEnabled=" + isEnabled +
-                ", employeeType=" + employeeType +
+                ", JobTitle='" + JobTitle + '\'' +
                 ", payrolls=" + payrolls +
+                ", paystubs=" + paystubs +
+                ", employeeType=" + employeeType +
                 '}';
     }
+
+    //</editor-fold>
 }

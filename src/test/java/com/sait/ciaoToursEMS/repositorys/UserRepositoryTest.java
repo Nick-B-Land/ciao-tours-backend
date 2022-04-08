@@ -68,11 +68,11 @@ class UserRepositoryTest {
     @Test
     void setUserEmployeeType() {
 
-        EnumEmployeeTypes expected = EnumEmployeeTypes.FULL_TIME;
+        EnumEmployeeTypes expected = EnumEmployeeTypes.SALARY;
 
         userRepository.findByUsername("admin").ifPresent(user -> {
             EmployeeType employeeType = new EmployeeType();
-            employeeType.setDescription(EnumEmployeeTypes.FULL_TIME);
+            employeeType.setDescription(EnumEmployeeTypes.SALARY);
             user.getEmployee().setEmployeeType(employeeType);
             System.out.println(user.getEmployee().getEmployeeType().getDescription());
             System.out.println(user.getEmployee().getEmployeeId());
@@ -86,11 +86,11 @@ class UserRepositoryTest {
     @Test
     void setUserEmployeeTypeThroughEmployeeRepo() {
         long empid = userRepository.findByUsername("admin").get().getEmployee().getEmployeeId();
-        EnumEmployeeTypes expected = EnumEmployeeTypes.FULL_TIME;
+        EnumEmployeeTypes expected = EnumEmployeeTypes.SALARY;
 
         employeeRepository.findById(empid).ifPresent(employee -> {
             EmployeeType employeeType = new EmployeeType();
-            employeeType.setDescription(EnumEmployeeTypes.FULL_TIME);
+            employeeType.setDescription(EnumEmployeeTypes.SALARY);
             employee.setEmployeeType(employeeType);
             employeeRepository.save(employee);
         });

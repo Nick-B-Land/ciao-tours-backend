@@ -5,6 +5,7 @@ INSERT INTO `roles` (`role_id`,`name`) VALUES (3,'ROLE_HR');
 INSERT INTO `roles` (`role_id`,`name`) VALUES (4,'ROLE_EMPLOYEE');
 
 --Employee Types
-INSERT INTO `employee_type` (`description`) VALUES ('Full Time');
-INSERT INTO `employee_type` (`description`) VALUES ('Part Time');
-INSERT INTO `employee_type` (`description`) VALUES ('Italian');
+INSERT INTO `employee_type` (`description`) VALUES ('HOURLY');
+INSERT INTO `employee_type` (`description`) VALUES ('SALARY');
+INSERT INTO `employee_type` (`description`) VALUES ('ITALIAN');
+INSERT INTO `employee_type` (`type_id`,`description`) VALUES ('99','ITALIAN');
