@@ -1,10 +1,7 @@
 package com.sait.ciaoToursEMS.controllers;
 
 
-import com.sait.ciaoToursEMS.model.EmployeeType;
-import com.sait.ciaoToursEMS.model.EnumRoles;
-import com.sait.ciaoToursEMS.model.Role;
-import com.sait.ciaoToursEMS.model.User;
+import com.sait.ciaoToursEMS.model.*;
 import com.sait.ciaoToursEMS.payload.request.LoginRequest;
 import com.sait.ciaoToursEMS.payload.request.SignupRequest;
 import com.sait.ciaoToursEMS.payload.response.MessageResponse;
@@ -13,6 +10,7 @@ import com.sait.ciaoToursEMS.repositorys.RoleRepository;
 import com.sait.ciaoToursEMS.repositorys.UserRepository;
 import com.sait.ciaoToursEMS.security.jwt.JwtUtils;
 import com.sait.ciaoToursEMS.security.services.UserDetailsImpl;
+import com.sait.ciaoToursEMS.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -46,6 +44,9 @@ public class AuthController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    EmployeeService employeeService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -87,10 +88,12 @@ public class AuthController {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
         }
+        //Create new employee
+        Employee employee = employeeService.createEmployee(signUpRequest.getEmployee());
 
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
-                passwordEncoder.encode(signUpRequest.getPassword()), signUpRequest.getEmployee());
+                passwordEncoder.encode(signUpRequest.getPassword()), employee);
 
         System.out.println(user.getUsername());
 

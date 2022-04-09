@@ -499,54 +499,12 @@ public class Employee {
         if (this == o) return true;
         if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return getEmployeeId() == employee.getEmployeeId() && Float.compare(employee.getHourlyWage(),
-                getHourlyWage()) == 0 && Float.compare(employee.getMonthlySalary(),
-                getMonthlySalary()) == 0 &&
-                getInstitutionId() == employee.getInstitutionId() &&
-                getBankAccountNumber() == employee.getBankAccountNumber() &&
-                getTransitId() == employee.getTransitId() &&
-                getFirstName().equals(employee.getFirstName()) &&
-                getLastName().equals(employee.getLastName()) &&
-                getAddress().equals(employee.getAddress()) &&
-                country.equals(employee.country) &&
-                province.equals(employee.province) &&
-                postalCode.equals(employee.postalCode) &&
-                dateOfBirth.equals(employee.dateOfBirth) &&
-                getCity().equals(employee.getCity()) &&
-                getEmailAddress().equals(employee.getEmailAddress()) &&
-                getEmployeeStartDate().equals(employee.getEmployeeStartDate()) &&
-                getEmployeeEndDate().equals(employee.getEmployeeEndDate()) &&
-                getIsEnabled().equals(employee.getIsEnabled()) &&
-                JobTitle.equals(employee.JobTitle) &&
-                getPayrolls().equals(employee.getPayrolls()) &&
-                getPaystubs().equals(employee.getPaystubs()) &&
-                getEmployeeType().equals(employee.getEmployeeType());
+        return getEmployeeId() == employee.getEmployeeId() && Float.compare(employee.getHourlyWage(), getHourlyWage()) == 0 && Float.compare(employee.getMonthlySalary(), getMonthlySalary()) == 0 && getInstitutionId() == employee.getInstitutionId() && getBankAccountNumber() == employee.getBankAccountNumber() && getTransitId() == employee.getTransitId() && getIsEnabled() == employee.getIsEnabled() && Objects.equals(getFirstName(), employee.getFirstName()) && Objects.equals(getLastName(), employee.getLastName()) && Objects.equals(getAddress(), employee.getAddress()) && Objects.equals(getCountry(), employee.getCountry()) && Objects.equals(getProvince(), employee.getProvince()) && Objects.equals(getPostalCode(), employee.getPostalCode()) && Objects.equals(getDateOfBirth(), employee.getDateOfBirth()) && Objects.equals(getCity(), employee.getCity()) && Objects.equals(getEmailAddress(), employee.getEmailAddress()) && Objects.equals(getEmployeeStartDate(), employee.getEmployeeStartDate()) && Objects.equals(getEmployeeEndDate(), employee.getEmployeeEndDate()) && Objects.equals(getJobTitle(), employee.getJobTitle()) && Objects.equals(getPayrolls(), employee.getPayrolls()) && Objects.equals(getPaystubs(), employee.getPaystubs()) && Objects.equals(getEmployeeType(), employee.getEmployeeType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmployeeId(),
-                getFirstName(),
-                getLastName(),
-                getAddress(),
-                country,
-                province,
-                postalCode,
-                dateOfBirth,
-                getCity(),
-                getEmailAddress(),
-                getEmployeeStartDate(),
-                getEmployeeEndDate(),
-                getHourlyWage(),
-                getMonthlySalary(),
-                getInstitutionId(),
-                getBankAccountNumber(),
-                getTransitId(),
-                getIsEnabled(),
-                JobTitle,
-                getPayrolls(),
-                getPaystubs(),
-                getEmployeeType());
+        return Objects.hash(getEmployeeId(), getFirstName(), getLastName(), getAddress(), getCountry(), getProvince(), getPostalCode(), getDateOfBirth(), getCity(), getEmailAddress(), getEmployeeStartDate(), getEmployeeEndDate(), getHourlyWage(), getMonthlySalary(), getInstitutionId(), getBankAccountNumber(), getTransitId(), getIsEnabled(), getJobTitle(), getPayrolls(), getPaystubs(), getEmployeeType());
     }
 
     @Override

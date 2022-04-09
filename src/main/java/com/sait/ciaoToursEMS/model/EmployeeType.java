@@ -18,7 +18,7 @@ import java.util.*;
 public class EmployeeType {
 
     @Id
-    @Column(name = "type_id")
+    @Column(name = "employee_type_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employeeTypeId;
 
@@ -35,8 +35,6 @@ public class EmployeeType {
     private EnumEmployeeTypes description;
 
     public EmployeeType() {
-        employeeTypeId = 99;
-        description = EnumEmployeeTypes.INACTIVE;
     }
 
     /**
