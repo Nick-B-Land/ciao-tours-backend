@@ -1,10 +1,9 @@
 package com.sait.ciaoToursEMS.model;
 
+import com.sait.ciaoToursEMS.upload.model.FileDB;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "employee")
@@ -59,6 +58,17 @@ public class Employee {
 
     @Column(name = "transit_id")
     private long transitId;
+
+    @OneToMany(mappedBy = "employee", orphanRemoval = true)
+    private List<FileDB> fileDBs = new ArrayList<>();
+
+    public List<FileDB> getFileDBs() {
+        return fileDBs;
+    }
+
+    public void setFileDBs(List<FileDB> fileDBs) {
+        this.fileDBs = fileDBs;
+    }
 
     public Employee(){}
 

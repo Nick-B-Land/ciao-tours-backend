@@ -1,11 +1,9 @@
 package com.sait.ciaoToursEMS.upload.model;
 
+import com.sait.ciaoToursEMS.model.Employee;
 import org.hibernate.annotations.GenericGenerator;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "files")
@@ -20,6 +18,18 @@ public class FileDB {
 
     @Lob
     private byte[] data;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
     public FileDB() {
     }
