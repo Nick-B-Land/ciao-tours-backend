@@ -72,7 +72,7 @@ public class Employee {
     private long transitId;
 
     @Column(name = "enabled", nullable = false)
-    private Boolean isEnabled = true;
+    private int isEnabled = 1;
 
     @Column(name = "title")
     private String JobTitle;
@@ -414,17 +414,17 @@ public class Employee {
 
     /**
      * A boolean that allows for the employee to be active or inactive
-     * @return a boolean representing the employee's active status
+     * @return an int representing the employee's active status
      */
-    public Boolean getIsEnabled() {
+    public int getIsEnabled() {
         return isEnabled;
     }
 
     /**
      * Sets the employee's active status
-     * @param isEnabled a boolean representing the employee's active status
+     * @param isEnabled an int representing the employee's active status
      */
-    public void setIsEnabled(Boolean isEnabled) {
+    public void setIsEnabled(int isEnabled) {
         this.isEnabled = isEnabled;
     }
 

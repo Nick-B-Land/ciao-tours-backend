@@ -11,6 +11,8 @@ public class Paystub {
     @Column(name = "paystub_id")
     private long paystubId;
 
+
+    //<editor-fold desc="Fields">
     @Transient
     private long employeeId;
 
@@ -79,18 +81,13 @@ public class Paystub {
 
     @Column(name = "net_pay")
     private double netPay;
+    //</editor-fold>
 
+    //<editor-fold desc="Relational Fields">
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "employee_employee_id", nullable = false)
     private Employee employee;
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+    //</editor-fold>
 
     public Paystub() {
     }
@@ -127,6 +124,7 @@ public class Paystub {
         this.employeeId = this.employee.getEmployeeId();
     }
 
+    //<editor-fold desc="Getters and Setters">
     public long getEmployeeId() {return this.employeeId;}
 
     public long getPaystubId() {
@@ -312,6 +310,15 @@ public class Paystub {
     public void setNetPay(double netPay) {
         this.netPay = netPay;
     }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+    //</editor-fold>
 
 }
 

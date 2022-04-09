@@ -34,10 +34,9 @@ public class EmployeeType {
     @Column(name = "description")
     private EnumEmployeeTypes description;
 
-    /**
-     * Default constructor.
-     */
     public EmployeeType() {
+        employeeTypeId = 99;
+        description = EnumEmployeeTypes.INACTIVE;
     }
 
     /**

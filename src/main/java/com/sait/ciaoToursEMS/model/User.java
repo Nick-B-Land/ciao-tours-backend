@@ -3,7 +3,6 @@ package com.sait.ciaoToursEMS.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
 
+    //<editor-fold desc="Fields">
     @NotBlank
     private String username;
 
@@ -22,7 +22,9 @@ public class User {
 
     @Column(name = "enabled", nullable = false)
     private Boolean isEnabled = true;
+    //</editor-fold>
 
+    //<editor-fold desc="Relational Fields">
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employee_id")
     private Employee employee;
@@ -33,15 +35,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
             )
     private Set<Role> roles = new HashSet<>();
+    //</editor-fold>
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
+    //<editor-fold desc="Constructors">
     public User() {}
 
     public User(@NotBlank String username, @NotBlank String password) {
@@ -60,7 +56,9 @@ public class User {
         this.password = password;
         this.roles = roles;
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Getters and Setters">
     public Long getId() {
         return user_id;
     }
@@ -96,4 +94,14 @@ public class User {
     public void setIsEnabled(Boolean isEnabled) {
         this.isEnabled = isEnabled;
     }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+    //</editor-fold>
+
 }
