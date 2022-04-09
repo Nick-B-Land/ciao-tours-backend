@@ -2,6 +2,10 @@ package com.sait.ciaoToursEMS.controllers;
 
 import com.sait.ciaoToursEMS.exceptions.ResourceNotFoundException;
 import com.sait.ciaoToursEMS.model.Employee;
+import com.sait.ciaoToursEMS.model.EmployeeType;
+import com.sait.ciaoToursEMS.model.Payroll;
+import com.sait.ciaoToursEMS.repositorys.EmployeeTypeRepository;
+import com.sait.ciaoToursEMS.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,17 +24,26 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private EmployeeTypeRepository employeeTypeRepository;
+
+    @Autowired
+    private EmployeeService employeeService;
+
     @GetMapping("/employees")
     //@PreAuthorize("hasRole('ADMIN') or hasRole('HR')")
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
+    @GetMapping("/employees/{id}")
+    public List<Employee> getEmployeeById(@PathVariable Long id) { return employeeRepository.findByEmployeeId(id); }
+
     // create employee rest api
     @PostMapping("/new-employee")
    // @PreAuthorize("hasRole('ADMIN') or hasRole('HR')")
     public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeRepository.save(employee);
+        return employeeService.createEmployee(employee);
     }
 
     @PutMapping("/update-employee/{id}")

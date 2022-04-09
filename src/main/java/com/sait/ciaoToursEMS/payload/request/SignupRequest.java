@@ -1,5 +1,7 @@
 package com.sait.ciaoToursEMS.payload.request;
 
+import com.sait.ciaoToursEMS.model.Employee;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -10,10 +12,18 @@ public class SignupRequest {
     @Size(min = 3, max = 20)
     private String username;
 
-    @NotNull
-    private Long employeeID;
+    public Employee getEmployee() {
+        return employee;
+    }
 
-    private Set<String> role;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    @NotNull
+    private Employee employee;
+
+    private Set<String> roles;
 
     @NotBlank
     @Size(min = 1, max = 40)
@@ -27,14 +37,6 @@ public class SignupRequest {
         this.username = username;
     }
 
-    public Long getEmployeeID() {
-        return employeeID;
-    }
-
-    public void setEmployeeID(Long employeeID) {
-        this.employeeID = employeeID;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -43,11 +45,11 @@ public class SignupRequest {
         this.password = password;
     }
 
-    public Set<String> getRole() {
-        return this.role;
+    public Set<String> getRoles() {
+        return this.roles;
     }
 
-    public void setRole(Set<String> role) {
-        this.role = role;
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 }

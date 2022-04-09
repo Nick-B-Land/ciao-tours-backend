@@ -11,8 +11,16 @@ public class Paystub {
     @Column(name = "paystub_id")
     private long paystubId;
 
+
+    //<editor-fold desc="Fields">
+    @Transient
+    private long employeeId;
+
+    @Column(name = "date_of_paystub")
+    private Date dateOfPaystub;
+
     @Column(name = "first_name")
-    private  String firstName;
+    private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
@@ -24,61 +32,100 @@ public class Paystub {
     private String city;
 
     @Column(name = "email_address")
-    private  String emailAddress;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "hourly_wage")
-    private float hourlyWage;
-
-    @Column(name = "number_of_workdays")
-    private int numberOfWorkdays;
-
-    @Column(name = "number_of_days_off")
-    private int numberOfDaysOff;
-
-    @Column(name = "non_salary_income")
-    private float  nonSalaryIncome;
-
-    @Column(name = "expense_amount")
-    private float expenseAmount;
-
-    @Column(name = "number_of_hours")
-    private int numberOfHours;
+    private String emailAddress;
 
     @Column(name = "monthly_salary")
     private float monthlySalary;
 
-    @Column(name = "rate")
-    private float rate;
+    @Column(name = "hourly_wage")
+    private float hourlyWage;
 
-    @Column(name = "date_of_paystub")
-    private Date dateOfPaystub;
+    @Column(name = "time_off_hours")
+    private double timeOffHours;
 
-    public Paystub(){}
+    @Column(name = "daily_assistance_number")
+    private double dailyAssistanceNumber;
 
-    public Paystub(long paystubId, String firstName, String lastName, String address, String city,
-                   String emailAddress, String description, float hourlyWage, int numberOfWorkdays,
-                   int numberOfDaysOff, float nonSalaryIncome, float expenseAmount, int numberOfHours,
-                   float monthlySalary, float rate, Date dateOfPaystub) {
+    @Column(name = "daily_assistance_charges")
+    private double dailyAssistanceCharges;
+
+    @Column(name = "tour_booking_hours")
+    private double tourBookingHours;
+
+    @Column(name = "tour_booking_charges")
+    private double tourBookingCharges;
+
+    @Column(name = "expense_amount")
+    private float expenseAmount;
+
+    @Column(name = "work_day_hours")
+    private double workDayHours;
+
+    @Column(name = "work_day_charges")
+    private double workDayCharges;
+
+    @Column(name = "stat_hours")
+    private double statHours;
+
+    @Column(name = "income_tax")
+    private double incomeTax;
+
+    @Column(name = "cpp_deductions")
+    private double cppDeductions;
+
+    @Column(name = "ei_deductions")
+    private double eiDeductions;
+
+    @Column(name = "gross_pay")
+    private double grossPay;
+
+    @Column(name = "net_pay")
+    private double netPay;
+    //</editor-fold>
+
+    //<editor-fold desc="Relational Fields">
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "employee_employee_id", nullable = false)
+    private Employee employee;
+    //</editor-fold>
+
+    public Paystub() {
+    }
+
+    public Paystub(long paystubId, Employee e, Date dateOfPaystub, String firstName, String lastName,
+                   String address, String city, String emailAddress, float monthlySalary, float hourlyWage,
+                   double timeOffHours, double dailyAssistanceNumber, double dailyAssistanceCharges, double tourBookingHours,
+                   double tourBookingCharges, float expenseAmount, double workDayHours, double workDayCharges, double statHours,
+                   double incomeTax, double cppDeductions, double eiDeductions, double grossPay, double netPay) {
         this.paystubId = paystubId;
+        this.employee = e;
+        this.dateOfPaystub = dateOfPaystub;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
         this.emailAddress = emailAddress;
-        this.description = description;
-        this.hourlyWage = hourlyWage;
-        this.numberOfWorkdays = numberOfWorkdays;
-        this.numberOfDaysOff = numberOfDaysOff;
-        this.nonSalaryIncome = nonSalaryIncome;
-        this.expenseAmount = expenseAmount;
-        this.numberOfHours = numberOfHours;
         this.monthlySalary = monthlySalary;
-        this.rate = rate;
-        this.dateOfPaystub = dateOfPaystub;
+        this.hourlyWage = hourlyWage;
+        this.timeOffHours = timeOffHours;
+        this.dailyAssistanceNumber = dailyAssistanceNumber;
+        this.dailyAssistanceCharges = dailyAssistanceCharges;
+        this.tourBookingHours = tourBookingHours;
+        this.tourBookingCharges = tourBookingCharges;
+        this.expenseAmount = expenseAmount;
+        this.workDayHours = workDayHours;
+        this.workDayCharges = workDayCharges;
+        this.statHours = statHours;
+        this.incomeTax = incomeTax;
+        this.cppDeductions = cppDeductions;
+        this.eiDeductions = eiDeductions;
+        this.grossPay = grossPay;
+        this.netPay = netPay;
+        this.employeeId = this.employee.getEmployeeId();
     }
+
+    //<editor-fold desc="Getters and Setters">
+    public long getEmployeeId() {return this.employeeId;}
 
     public long getPaystubId() {
         return paystubId;
@@ -86,6 +133,14 @@ public class Paystub {
 
     public void setPaystubId(long paystubId) {
         this.paystubId = paystubId;
+    }
+
+    public Date getDateOfPaystub() {
+        return dateOfPaystub;
+    }
+
+    public void setDateOfPaystub(Date dateOfPaystub) {
+        this.dateOfPaystub = dateOfPaystub;
     }
 
     public String getFirstName() {
@@ -128,12 +183,12 @@ public class Paystub {
         this.emailAddress = emailAddress;
     }
 
-    public String getDescription() {
-        return description;
+    public float getMonthlySalary() {
+        return monthlySalary;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMonthlySalary(float monthlySalary) {
+        this.monthlySalary = monthlySalary;
     }
 
     public float getHourlyWage() {
@@ -144,28 +199,44 @@ public class Paystub {
         this.hourlyWage = hourlyWage;
     }
 
-    public int getNumberOfWorkdays() {
-        return numberOfWorkdays;
+    public double getTimeOffHours() {
+        return timeOffHours;
     }
 
-    public void setNumberOfWorkdays(int numberOfWorkdays) {
-        this.numberOfWorkdays = numberOfWorkdays;
+    public void setTimeOffHours(double timeOffHours) {
+        this.timeOffHours = timeOffHours;
     }
 
-    public int getNumberOfDaysOff() {
-        return numberOfDaysOff;
+    public double getDailyAssistanceNumber() {
+        return dailyAssistanceNumber;
     }
 
-    public void setNumberOfDaysOff(int numberOfDaysOff) {
-        this.numberOfDaysOff = numberOfDaysOff;
+    public void setDailyAssistanceNumber(double dailyAssistanceNumber) {
+        this.dailyAssistanceNumber = dailyAssistanceNumber;
     }
 
-    public float getNonSalaryIncome() {
-        return nonSalaryIncome;
+    public double getDailyAssistanceCharges() {
+        return dailyAssistanceCharges;
     }
 
-    public void setNonSalaryIncome(float nonSalaryIncome) {
-        this.nonSalaryIncome = nonSalaryIncome;
+    public void setDailyAssistanceCharges(double dailyAssistanceCharges) {
+        this.dailyAssistanceCharges = dailyAssistanceCharges;
+    }
+
+    public double getTourBookingHours() {
+        return tourBookingHours;
+    }
+
+    public void setTourBookingHours(double tourBookingHours) {
+        this.tourBookingHours = tourBookingHours;
+    }
+
+    public double getTourBookingCharges() {
+        return tourBookingCharges;
+    }
+
+    public void setTourBookingCharges(double tourBookingCharges) {
+        this.tourBookingCharges = tourBookingCharges;
     }
 
     public float getExpenseAmount() {
@@ -176,70 +247,78 @@ public class Paystub {
         this.expenseAmount = expenseAmount;
     }
 
-    public int getNumberOfHours() {
-        return numberOfHours;
+    public double getWorkDayHours() {
+        return workDayHours;
     }
 
-    public void setNumberOfHours(int numberOfHours) {
-        this.numberOfHours = numberOfHours;
+    public void setWorkDayHours(double workDayHours) {
+        this.workDayHours = workDayHours;
     }
 
-    public float getMonthlySalary() {
-        return monthlySalary;
+    public double getWorkDayCharges() {
+        return workDayCharges;
     }
 
-    public void setMonthlySalary(float monthlySalary) {
-        this.monthlySalary = monthlySalary;
+    public void setWorkDayCharges(double workDayCharges) {
+        this.workDayCharges = workDayCharges;
     }
 
-    public float getRate() {
-        return rate;
+    public double getStatHours() {
+        return statHours;
     }
 
-    public void setRate(float rate) {
-        this.rate = rate;
+    public void setStatHours(double statHours) {
+        this.statHours = statHours;
     }
 
-    public Date getDateOfPaystub() {
-        return dateOfPaystub;
+    public double getIncomeTax() {
+        return incomeTax;
     }
 
-    public void setDateOfPaystub(Date dateOfPaystub) {
-        this.dateOfPaystub = dateOfPaystub;
+    public void setIncomeTax(double incomeTax) {
+        this.incomeTax = incomeTax;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Paystub)) return false;
-        Paystub paystub = (Paystub) o;
-        return getPaystubId() == paystub.getPaystubId() && Float.compare(paystub.getHourlyWage(), getHourlyWage()) == 0 && getNumberOfWorkdays() == paystub.getNumberOfWorkdays() && getNumberOfDaysOff() == paystub.getNumberOfDaysOff() && Float.compare(paystub.getNonSalaryIncome(), getNonSalaryIncome()) == 0 && Float.compare(paystub.getExpenseAmount(), getExpenseAmount()) == 0 && getNumberOfHours() == paystub.getNumberOfHours() && Float.compare(paystub.getMonthlySalary(), getMonthlySalary()) == 0 && Float.compare(paystub.getRate(), getRate()) == 0 && Objects.equals(getFirstName(), paystub.getFirstName()) && Objects.equals(getLastName(), paystub.getLastName()) && Objects.equals(getAddress(), paystub.getAddress()) && Objects.equals(getCity(), paystub.getCity()) && Objects.equals(getEmailAddress(), paystub.getEmailAddress()) && Objects.equals(getDescription(), paystub.getDescription()) && Objects.equals(getDateOfPaystub(), paystub.getDateOfPaystub());
+    public double getCppDeductions() {
+        return cppDeductions;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getPaystubId(), getFirstName(), getLastName(), getAddress(), getCity(), getEmailAddress(), getDescription(), getHourlyWage(), getNumberOfWorkdays(), getNumberOfDaysOff(), getNonSalaryIncome(), getExpenseAmount(), getNumberOfHours(), getMonthlySalary(), getRate(), getDateOfPaystub());
+    public void setCppDeductions(double cppDeductions) {
+        this.cppDeductions = cppDeductions;
     }
 
-    @Override
-    public String toString() {
-        return "paystub{" +
-                "paystubId=" + paystubId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", description='" + description + '\'' +
-                ", hourlyWage=" + hourlyWage +
-                ", numberOfWorkdays=" + numberOfWorkdays +
-                ", numberOfDaysOff=" + numberOfDaysOff +
-                ", nonSalaryIncome=" + nonSalaryIncome +
-                ", expenseAmount=" + expenseAmount +
-                ", numberOfHours=" + numberOfHours +
-                ", monthlySalary=" + monthlySalary +
-                ", rate=" + rate +
-                ", dateOfPaystub=" + dateOfPaystub +
-                '}';
+    public double getEiDeductions() {
+        return eiDeductions;
     }
+
+    public void setEiDeductions(double eiDeductions) {
+        this.eiDeductions = eiDeductions;
+    }
+
+    public double getGrossPay() {
+        return grossPay;
+    }
+
+    public void setGrossPay(double grossPay) {
+        this.grossPay = grossPay;
+    }
+
+    public double getNetPay() {
+        return netPay;
+    }
+
+    public void setNetPay(double netPay) {
+        this.netPay = netPay;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+    //</editor-fold>
+
 }
+

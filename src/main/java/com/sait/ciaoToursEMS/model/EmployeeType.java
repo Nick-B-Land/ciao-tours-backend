@@ -1,38 +1,63 @@
 package com.sait.ciaoToursEMS.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
+
+/**
+ * EmployeeType
+ *
+ * Represents the type of employee.
+ * 1. HOURLY
+ * 2. SALARY
+ * 3. ITALIAN
+ */
 
 @Entity
-@Table(name = "Employee_type")
 public class EmployeeType {
+
     @Id
+    @Column(name = "employee_type_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employeeTypeId;
 
+    /**
+     * The enum for a job category of the employee.
+     * 1. HOURLY
+     * 2. SALARY
+     * 3. ITALIAN
+     * 99. INACTIVE
+     * @see EnumEmployeeTypes
+     */
+    @Enumerated(EnumType.STRING)
     @Column(name = "description")
-    private String description;
+    private EnumEmployeeTypes description;
 
-    public EmployeeType(){}
-
-    public EmployeeType(long employeeTypeId, String description) {
-        this.employeeTypeId = employeeTypeId;
-        this.description = description;
+    public EmployeeType() {
     }
 
+    /**
+     * Getter for the employeeTypeId.
+     * @return
+     */
     public long getEmployeeTypeId() {
         return employeeTypeId;
     }
 
-    public void setEmployeeTypeId(long employeeTypeId) {
-        this.employeeTypeId = employeeTypeId;
-    }
-
-    public String getDescription() {
+    /**
+     * Enum for the job category of the employee.
+     * @return EnumEmployeeTypes the job category of the employee.
+     */
+    public EnumEmployeeTypes getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    /**
+     * Setter for the job category of the employee.
+     * @param description the job category of the employee.
+     */
+    public void setDescription(EnumEmployeeTypes description) {
         this.description = description;
     }
 
