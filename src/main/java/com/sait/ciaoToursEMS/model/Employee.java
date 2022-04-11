@@ -49,12 +49,6 @@ public class Employee {
     @Column(name = "monthly_salary")
     private float monthlySalary;
 
-    @Column(name = "is_admin")
-    private long isAdmin;
-
-    @Column(name = "is_bookeeper")
-    private long isBookeeper;
-
     @Column(name = "institution_id")
     private long institutionId;
 
@@ -84,7 +78,8 @@ public class Employee {
 
     public Employee(){}
 
-    public Employee(long employeeId, String firstName, String lastName, String address, String city, String emailAddress, int employeeType, String jobTitle, Date employeeStartDate, Date employeeEndDate, float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId, long bankAccountNumber, long transitId, Date dateOfBirth, String postalCode, String country, String province, String phoneNumber, int isActive) {
+    public Employee(long employeeId, String firstName, String lastName, String address, String city, String emailAddress, int employeeType, String jobTitle, Date employeeStartDate, Date employeeEndDate, float hourlyWage, float monthlySalary,
+                    long institutionId, long bankAccountNumber, long transitId, Date dateOfBirth, String postalCode, String country, String province, String phoneNumber, int isActive) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -97,8 +92,6 @@ public class Employee {
         this.employeeEndDate = employeeEndDate;
         this.hourlyWage = hourlyWage;
         this.monthlySalary = monthlySalary;
-        this.isAdmin = isAdmin;
-        this.isBookeeper = isBookeeper;
         this.institutionId = institutionId;
         this.bankAccountNumber = bankAccountNumber;
         this.transitId = transitId;
@@ -206,22 +199,6 @@ public class Employee {
         this.monthlySalary = monthlySalary;
     }
 
-    public long getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(long isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
-    public long getIsBookeeper() {
-        return isBookeeper;
-    }
-
-    public void setIsBookeeper(long isBookeeper) {
-        this.isBookeeper = isBookeeper;
-    }
-
     public long getInstitutionId() {
         return institutionId;
     }
@@ -303,8 +280,6 @@ public class Employee {
                 employeeType == employee.employeeType &&
                 Float.compare(employee.hourlyWage, hourlyWage) == 0 &&
                 Float.compare(employee.monthlySalary, monthlySalary) == 0 &&
-                isAdmin == employee.isAdmin &&
-                isBookeeper == employee.isBookeeper &&
                 institutionId == employee.institutionId &&
                 bankAccountNumber == employee.bankAccountNumber &&
                 transitId == employee.transitId &&
@@ -326,7 +301,7 @@ public class Employee {
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, firstName, lastName, address, city, emailAddress, employeeType, jobTitle, employeeStartDate, employeeEndDate, hourlyWage, monthlySalary, isAdmin, isBookeeper, institutionId, bankAccountNumber, transitId, dateOfBirth, postalCode, country, province, phoneNumber, isActive);
+        return Objects.hash(employeeId, firstName, lastName, address, city, emailAddress, employeeType, jobTitle, employeeStartDate, employeeEndDate, hourlyWage, monthlySalary, institutionId, bankAccountNumber, transitId, dateOfBirth, postalCode, country, province, phoneNumber, isActive);
     }
 
     @Override
@@ -344,8 +319,6 @@ public class Employee {
                 ", employeeEndDate=" + employeeEndDate +
                 ", hourlyWage=" + hourlyWage +
                 ", monthlySalary=" + monthlySalary +
-                ", isAdmin=" + isAdmin +
-                ", isBookeeper=" + isBookeeper +
                 ", institutionId=" + institutionId +
                 ", bankAccountNumber=" + bankAccountNumber +
                 ", transitId=" + transitId +

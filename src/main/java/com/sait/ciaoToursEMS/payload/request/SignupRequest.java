@@ -13,7 +13,7 @@ public class SignupRequest {
     @NotNull
     private Long employeeID;
 
-    private Set<String> role;
+    private Set<String> roles;
 
     @NotBlank
     @Size(min = 1, max = 40)
@@ -44,10 +44,10 @@ public class SignupRequest {
     }
 
     public Set<String> getRole() {
-        return this.role;
+        return this.roles;
     }
 
     public void setRole(Set<String> role) {
-        this.role = role;
+        this.roles = role;
     }
 }
