@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "event")
-public class Event {
+@Table(name = "payroll_data_event")
+public class PayrollDataEvent {
     @Id
     @GeneratedValue
     @Column(name = "event_id")
@@ -16,9 +16,9 @@ public class Event {
     @Column(name = "event_description")
     private String eventDescription;
 
-    public Event(){}
+    public PayrollDataEvent(){}
 
-    public Event(long eventId, String eventDescription) {
+    public PayrollDataEvent(long eventId, String eventDescription) {
         this.eventId = eventId;
         this.eventDescription = eventDescription;
     }
@@ -42,19 +42,20 @@ public class Event {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Event)) return false;
-        Event event = (Event) o;
-        return getEventId() == event.getEventId() && Objects.equals(getEventDescription(), event.getEventDescription());
+        if (!(o instanceof PayrollDataEvent)) return false;
+        PayrollDataEvent that = (PayrollDataEvent) o;
+        return eventId == that.eventId &&
+                Objects.equals(eventDescription, that.eventDescription);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEventId(), getEventDescription());
+        return Objects.hash(eventId, eventDescription);
     }
 
     @Override
     public String toString() {
-        return "Event{" +
+        return "PayrollDataEvent{" +
                 "eventId=" + eventId +
                 ", eventDescription='" + eventDescription + '\'' +
                 '}';

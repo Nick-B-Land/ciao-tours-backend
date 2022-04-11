@@ -10,15 +10,11 @@ import java.util.Set;
 @Entity
 @Table(name = "payroll_data")
 public class PayrollData {
-
-
     @Id
     @GeneratedValue
     @Column(name = "payroll_data_id")
     private long payrollDataId;
 
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "payroll_id")
     @Column(name = "payroll_id")
     private long payrollId;
 

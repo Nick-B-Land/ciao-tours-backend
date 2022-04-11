@@ -16,10 +16,6 @@ public class Employee {
     @Column(name = "employee_id")
     private long employeeId;
 
-    @ManyToMany
-    @JoinTable(name = "EID_ETID", joinColumns = @JoinColumn(name = "employee_id"), inverseJoinColumns = @JoinColumn(name = "employee_type_id"))
-    private Set<EmployeeType> roles = new HashSet<>();
-
     @Column(name = "first_name")
     private String firstName;
                                              
@@ -68,11 +64,28 @@ public class Employee {
     @Column(name = "transit_id")
     private long transitId;
 
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
+
+    @Column(name = "postal_code")
+    private String postalCode;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "province")
+    private String province;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "isActive")
+    private int isActive;
+
     public Employee(){}
 
-    public Employee(long employeeId, Set<EmployeeType> roles, String firstName, String lastName, String address, String city, String emailAddress, int employeeType, String jobTitle, Date employeeStartDate, Date employeeEndDate, float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId, long bankAccountNumber, long transitId) {
+    public Employee(long employeeId, String firstName, String lastName, String address, String city, String emailAddress, int employeeType, String jobTitle, Date employeeStartDate, Date employeeEndDate, float hourlyWage, float monthlySalary, long isAdmin, long isBookeeper, long institutionId, long bankAccountNumber, long transitId, Date dateOfBirth, String postalCode, String country, String province, String phoneNumber, int isActive) {
         this.employeeId = employeeId;
-        this.roles = roles;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -89,22 +102,12 @@ public class Employee {
         this.institutionId = institutionId;
         this.bankAccountNumber = bankAccountNumber;
         this.transitId = transitId;
-    }
-
-    public int getEmployeeType() {
-        return employeeType;
-    }
-
-    public void setEmployeeType(int employeeType) {
-        this.employeeType = employeeType;
-    }
-
-    public String getJobTitle() {
-        return jobTitle;
-    }
-
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+        this.dateOfBirth = dateOfBirth;
+        this.postalCode = postalCode;
+        this.country = country;
+        this.province = province;
+        this.phoneNumber = phoneNumber;
+        this.isActive = isActive;
     }
 
     public long getEmployeeId() {
@@ -113,14 +116,6 @@ public class Employee {
 
     public void setEmployeeId(long employeeId) {
         this.employeeId = employeeId;
-    }
-
-    public Set<EmployeeType> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<EmployeeType> roles) {
-        this.roles = roles;
     }
 
     public String getFirstName() {
@@ -161,6 +156,22 @@ public class Employee {
 
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    public int getEmployeeType() {
+        return employeeType;
+    }
+
+    public void setEmployeeType(int employeeType) {
+        this.employeeType = employeeType;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
     public Date getEmployeeStartDate() {
@@ -235,6 +246,54 @@ public class Employee {
         this.transitId = transitId;
     }
 
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -249,7 +308,7 @@ public class Employee {
                 institutionId == employee.institutionId &&
                 bankAccountNumber == employee.bankAccountNumber &&
                 transitId == employee.transitId &&
-                Objects.equals(roles, employee.roles) &&
+                isActive == employee.isActive &&
                 Objects.equals(firstName, employee.firstName) &&
                 Objects.equals(lastName, employee.lastName) &&
                 Objects.equals(address, employee.address) &&
@@ -257,19 +316,23 @@ public class Employee {
                 Objects.equals(emailAddress, employee.emailAddress) &&
                 Objects.equals(jobTitle, employee.jobTitle) &&
                 Objects.equals(employeeStartDate, employee.employeeStartDate) &&
-                Objects.equals(employeeEndDate, employee.employeeEndDate);
+                Objects.equals(employeeEndDate, employee.employeeEndDate) &&
+                Objects.equals(dateOfBirth, employee.dateOfBirth) &&
+                Objects.equals(postalCode, employee.postalCode) &&
+                Objects.equals(country, employee.country) &&
+                Objects.equals(province, employee.province) &&
+                Objects.equals(phoneNumber, employee.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, roles, firstName, lastName, address, city, emailAddress, employeeType, jobTitle, employeeStartDate, employeeEndDate, hourlyWage, monthlySalary, isAdmin, isBookeeper, institutionId, bankAccountNumber, transitId);
+        return Objects.hash(employeeId, firstName, lastName, address, city, emailAddress, employeeType, jobTitle, employeeStartDate, employeeEndDate, hourlyWage, monthlySalary, isAdmin, isBookeeper, institutionId, bankAccountNumber, transitId, dateOfBirth, postalCode, country, province, phoneNumber, isActive);
     }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "employeeId=" + employeeId +
-                ", roles=" + roles +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
@@ -286,6 +349,12 @@ public class Employee {
                 ", institutionId=" + institutionId +
                 ", bankAccountNumber=" + bankAccountNumber +
                 ", transitId=" + transitId +
+                ", dateOfBirth=" + dateOfBirth +
+                ", postalCode='" + postalCode + '\'' +
+                ", country='" + country + '\'' +
+                ", province='" + province + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", isActive=" + isActive +
                 '}';
     }
 }
