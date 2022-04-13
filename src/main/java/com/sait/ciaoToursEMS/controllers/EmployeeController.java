@@ -32,7 +32,7 @@ public class EmployeeController {
 
     // create employee rest api
     @PostMapping("/new-employee")
-   // @PreAuthorize("hasRole('ADMIN') or hasRole('HR')")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('HR')")
     public Employee createEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
     }

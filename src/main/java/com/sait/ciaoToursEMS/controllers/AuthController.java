@@ -1,6 +1,8 @@
 package com.sait.ciaoToursEMS.controllers;
 
 
+import com.sait.ciaoToursEMS.exceptions.ResourceNotFoundException;
+import com.sait.ciaoToursEMS.model.Employee;
 import com.sait.ciaoToursEMS.model.EnumRoles;
 import com.sait.ciaoToursEMS.model.Role;
 import com.sait.ciaoToursEMS.model.User;
@@ -77,6 +79,22 @@ public class AuthController {
 //                        userDetails.getUsername(),
 //                        userDetails.getEmployeeID(),
 //                        roles, jwtCookie.toString()));
+    }
+
+    @GetMapping("/user-by-employee-id/{id}")
+    public ResponseEntity<User> getUserByEmployeeId(@PathVariable Long id){
+        User user = (User) userRepository.findByEmployeeID(id);
+
+        return ResponseEntity.ok(user);
+    }
+
+    @PutMapping("/reset-password/{id}")
+    public ResponseEntity<User> updateEmployee(@PathVariable Long id, @RequestBody User userDetails){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No user found with this id :" + id));
+
+        User updatedUser = userRepository.save(userDetails);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @PostMapping("/signup")
