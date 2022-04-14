@@ -3,6 +3,9 @@ package com.sait.ciaoToursEMS.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * ResourceNotFoundException is thrown when a resource is not found in the database.
+ */
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException{
 

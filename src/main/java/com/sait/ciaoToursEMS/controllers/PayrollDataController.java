@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * PayrollDataController
+ * Handles all the request for payroll data entity
+ */
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/")
@@ -20,11 +24,18 @@ public class PayrollDataController {
     @Autowired
     private PayrollDataRepository payrollDataRepository;
 
-    //get all payroll data
+    /**
+     * Get all payroll data objects
+     * @return
+     */
     @GetMapping("/payroll-data")
     public List<PayrollData> getAllPayroll() { return payrollDataRepository.findAll(); }
 
-    // get payroll data by id
+    /**
+     * Get payroll data object by id
+     * @param id id of the payroll data object
+     * @return PayrollData object
+     */
     @GetMapping("/payroll-data/{id}")
     public ResponseEntity<PayrollData> getPayrollDataByID(@PathVariable Long id) {
         PayrollData payrollData = payrollDataRepository.findById(id)
@@ -32,17 +43,30 @@ public class PayrollDataController {
         return ResponseEntity.ok(payrollData);
     }
 
-    // get all payroll data by payroll id
-    //this is untested and will probably require tweaking
+    /**
+     * Get payroll data object by id
+     * @param id PayrollData object id
+     * @return PayrollData object
+     */
     @GetMapping("/payroll-data-by-payroll/{id}")
     public ResponseEntity<List<PayrollData>> getAllPayrollDataByPayrollID(@PathVariable Long id) {
         List <PayrollData> payrollData = payrollDataRepository.findByPayrollId(id);
         return ResponseEntity.ok(payrollData);
     }
 
+    /**
+     * Create a new payroll data object
+     * @param payrollData PayrollData object
+     * @return PayrollData object
+     */
     @PostMapping("/new-payroll-data")
     public PayrollData createPayroll (@RequestBody PayrollData payrollData) { return payrollDataRepository.save(payrollData); }
 
+    /**
+     * Delete a payroll data object by id
+     * @param id id of the payroll data object
+     * @return ResponseEntity
+     */
     @DeleteMapping("/delete-payroll-data/{id}")
     public ResponseEntity<Map<String, Boolean>> deletePayrollData(@PathVariable Long id){
         PayrollData payrollData = payrollDataRepository.findById(id)

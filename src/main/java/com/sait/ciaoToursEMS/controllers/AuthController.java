@@ -31,6 +31,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * AuthController
+ *
+ * Handles all user login and signup requests
+ */
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600, allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
@@ -51,6 +56,11 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    /**
+     * Sign in requests.
+     * @param loginRequest A login request object with username and password
+     * @return A JWT token
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -81,6 +91,11 @@ public class AuthController {
 //                        roles, jwtCookie.toString()));
     }
 
+    /**
+     * Get user object by employee id
+     * @param id Employee id
+     * @return User object
+     */
     @GetMapping("/user-by-employee-id/{id}")
     public ResponseEntity<User> getUserByEmployeeId(@PathVariable Long id){
         User user = (User) userRepository.findByEmployeeID(id);
@@ -88,6 +103,12 @@ public class AuthController {
         return ResponseEntity.ok(user);
     }
 
+    /**
+     * Reset password
+     * @param id User id of the user to reset password
+     * @param userDetails User details object
+     * @return User object with new password
+     */
     @PutMapping("/reset-password/{id}")
     public ResponseEntity<User> updateEmployee(@PathVariable Long id, @RequestBody User userDetails){
         User user = userRepository.findById(id)
@@ -97,6 +118,11 @@ public class AuthController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    /**
+     * Sign up requests.
+     * @param signUpRequest A signup request object with username and password
+     * @return A JWT token
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
@@ -148,6 +174,10 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
+    /**
+     * Sign out request that removes the JWT token from the user's browser
+     * @return A message response with reset cookie
+     */
     @PostMapping("/signout")
     public ResponseEntity<?> logoutUser() {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
