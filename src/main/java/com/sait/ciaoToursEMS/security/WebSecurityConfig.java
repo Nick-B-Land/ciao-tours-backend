@@ -17,7 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
+/**
+ * Configures security settings for the application.
+ */
 //@Configuration
 //@EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -33,6 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
+    /**
+     * Creates an authentication token filter bean.
+     * @return the authentication token filter bean
+     */
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
@@ -43,12 +49,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * Creates an authentication manager bean.
+     * @return the authentication manager bean
+     * @throws Exception if an error occurs
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * Creates a password encoder bean.
+     * @return the password encoder bean
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

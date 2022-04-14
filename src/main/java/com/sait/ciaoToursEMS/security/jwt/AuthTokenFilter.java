@@ -16,6 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * AuthTokenFilter
+ * Business logic for JWT authentication
+ */
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -26,6 +30,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
+    /**
+     * doFilterInternal
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
+     * @param filterChain FilterChain
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -50,6 +62,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * Parse JWT token from request header
+     * @param request HttpServletRequest
+     * @return String JWT token
+     */
     private String parseJwt(HttpServletRequest request) {
         String jwt = jwtUtils.getJwtFromCookies(request);
         return jwt;

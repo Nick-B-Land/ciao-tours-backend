@@ -11,11 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Authentication entry point for JWT authentication.
+ */
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
 
+    /**
+     * Handle the authentication entry point.
+     * @param request The request.
+     * @param response The response.
+     * @param authException The authentication exception.
+     * @throws IOException If an error occurs.
+     * @throws ServletException If an error occurs.
+     */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 

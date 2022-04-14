@@ -13,6 +13,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+/**
+ * JwtUtils
+ * Component to generate and validate JWT tokens
+ */
 @Component
 public class JwtUtils {
 
@@ -39,6 +43,11 @@ public class JwtUtils {
         }
     }
 
+    /**
+     * Generate JWT token for user
+     * @param userPrincipal UserDetailsImpl object
+     * @return JWT token
+     */
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
 
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
@@ -50,6 +59,10 @@ public class JwtUtils {
         return cookie;
     }
 
+    /**
+     * Generate clean JWT cookie for user
+     * @return New clean response cookie
+     */
     public ResponseCookie getCleanJwtCookie() {
         ResponseCookie cookie = ResponseCookie.from(jwtCookie, null)
                                 .path("/api").build();
@@ -57,11 +70,22 @@ public class JwtUtils {
         return cookie;
     }
 
+    /**
+     * Get username from JWT token
+     * @param token JWT token
+     * @return Username
+     *
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret)
                 .parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * Validate JWT token
+     * @param authToken JWT token
+     * @return Boolean value
+     */
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret)
@@ -82,6 +106,11 @@ public class JwtUtils {
         return false;
     }
 
+    /**
+     * Generate JWT token from username
+     * @param username Username
+     * @return JWT token
+     */
     public String generateTokenFromUsername(String username) {
         return Jwts.builder()
                 .setSubject(username)
