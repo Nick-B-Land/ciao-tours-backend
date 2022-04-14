@@ -97,10 +97,8 @@ public class AuthController {
      * @return User object
      */
     @GetMapping("/user-by-employee-id/{id}")
-    public ResponseEntity<User> getUserByEmployeeId(@PathVariable Long id){
-        User user = (User) userRepository.findByEmployeeID(id);
-
-        return ResponseEntity.ok(user);
+    public List<User> getUserByEmployeeId(@PathVariable Long id){
+        return userRepository.findByEmployeeID(id);
     }
 
     /**
@@ -114,7 +112,10 @@ public class AuthController {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No user found with this id :" + id));
 
-        User updatedUser = userRepository.save(userDetails);
+        user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+        //User newUser = new User(userDetails.getUsername(), passwordEncoder.encode(userDetails.getPassword()), userDetails.getEmployee_id(), userDetails.getRoles());
+
+        User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);
     }
 
