@@ -78,17 +78,11 @@ public class AuthController {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("set-cookie", jwtCookie.toString());
-        //headers.add("Access-Control-Allow-Credentials", "true");
         return ResponseEntity.ok().headers(headers)
                 .body(new UserInfoResponse(userDetails.getUserID(),
                         userDetails.getUsername(),
                         userDetails.getEmployeeID(),
                         roles, jwtCookie.toString()));
-//        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-//                .body(new UserInfoResponse(userDetails.getUserID(),
-//                        userDetails.getUsername(),
-//                        userDetails.getEmployeeID(),
-//                        roles, jwtCookie.toString()));
     }
 
     /**
@@ -113,7 +107,6 @@ public class AuthController {
                 .orElseThrow(() -> new ResourceNotFoundException("No user found with this id :" + id));
 
         user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-        //User newUser = new User(userDetails.getUsername(), passwordEncoder.encode(userDetails.getPassword()), userDetails.getEmployee_id(), userDetails.getRoles());
 
         User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);
